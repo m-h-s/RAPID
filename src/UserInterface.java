@@ -32,7 +32,7 @@ public class UserInterface extends JFrame {
 		DesignerQuery = new JTextField();
 		DesignerQuery.setBounds(35, 785, 790, 155);
 		DesignerQuery.setFont(new Font("Consolas", Font.PLAIN, 18));
-		Color color = new Color (0, 0, 0); 
+		Color color = new Color(0, 0, 0);
 		DesignerQuery.setForeground(color);
 		getContentPane().add(DesignerQuery);
 		DesignerQuery.setColumns(10);
@@ -48,9 +48,7 @@ public class UserInterface extends JFrame {
 		ConversationHistory.setContentType("Text");
 		ConversationHistory.setBounds(35, 52, 3000, 3000);
 		ConversationHistory.setFont(new Font("Consolas", Font.PLAIN, 17));
-		//ConversationHistory.setBackground(Color.black);
-		//ConversationHistory.setForeground(Color.yellow);
-		Color DarkBlueColor = new Color (25,25,112);
+		Color DarkBlueColor = new Color(25, 25, 112);
 		ConversationHistory.setForeground(DarkBlueColor);
 		getContentPane().add(ConversationHistory);
 
@@ -74,8 +72,7 @@ public class UserInterface extends JFrame {
 		getContentPane().add(InfoPaneScrollPane);
 
 		JButton QuerySubmitted = new JButton("Submit");
-		// QuerySubmitted.setForeground(UIManager.getColor("CheckBox.darkShadow"));
-		QuerySubmitted.setForeground(new Color (70, 70, 70));
+		QuerySubmitted.setForeground(new Color(70, 70, 70));
 		QuerySubmitted.setFont(new Font("Consolas", Font.BOLD, 17));
 		QuerySubmitted.setBackground(UIManager.getColor("Button.background"));
 		QuerySubmitted.addActionListener(new ActionListener() {
@@ -103,7 +100,7 @@ public class UserInterface extends JFrame {
 
 		this.setVisible(true);
 		this.setExtendedState(MAXIMIZED_BOTH);
-		this.getContentPane().setBackground(new Color (224, 224, 224));
+		this.getContentPane().setBackground(new Color(224, 224, 224));
 		this.setResizable(false);
 	}
 
@@ -117,14 +114,13 @@ public class UserInterface extends JFrame {
 
 	public void showInConversationHistory(String ExpansionHistory) {
 		ConversationHistory.setText(ExpansionHistory);
-		
+
 	}
 
 	public void appendToInfoPane(String output) {
 		InfoPane.setText(InfoPane.getText() + output);
 	}
 
-	
 	public void appendToConversationHistory(String ColorString, String output) {
 		Color color;
 		try {
@@ -144,19 +140,8 @@ public class UserInterface extends JFrame {
 		}
 
 	}
-	
-	public void appendToConversationHistory(Color color, String output) 
-	{
-		/*
-		Color color;
-		try {
-			
-			color = new Color (r, g, b);
-		} catch (Exception e) {
-			color = null;
-		}
-		*/
 
+	public void appendToConversationHistory(Color color, String output) {
 		SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 		StyleConstants.setForeground(attributeSet, color);
 		Document doc = ConversationHistory.getDocument();

@@ -1,9 +1,12 @@
 
+
 /**
  * @author Mahsa Sadi
  *
  */
 import java.util.*;
+
+import user_interaction_component.UserInteractionManager;
 
 /*
  * Why enum is known although it is not defined here?
@@ -63,28 +66,28 @@ public class MainClass {
 		/*
 		
 		UserInterface UI = new UserInterface (); 
-		QueryManager QueryManager = new QueryManager ();
-		RuleExplorer RuleExplorer = new RuleExplorer (UI); 
+		Recommender Recommender = new Recommender ();
+		rule_explorer_component rule_explorer_component = new rule_explorer_component (UI); 
 		
 		
 		
-		RuleExplorer.expandRuleGraphTopDownByUser();
-		//RuleExplorer.exploreSourceTermsByUser();
-		RuleExplorer.exploreExpandedRuleGraphOneByOne();
+		rule_explorer_component.expandRuleGraphTopDownByUser();
+		//rule_explorer_component.exploreSourceTermsByUser();
+		rule_explorer_component.exploreExpandedRuleGraphOneByOne();
 		
 		
-		List <ArrayListRuleGraph> ExploredRuleGraphs = RuleExplorer.getExploredRuleGraphs();
-		ArrayListRuleGraph ExpandedRuleGraph = RuleExplorer.getExpandedRuleGraph();
+		List <ArrayListRuleGraph> ExploredRuleGraphs = rule_explorer_component.getExploredRuleGraphs();
+		ArrayListRuleGraph ExpandedRuleGraph = rule_explorer_component.getExpandedRuleGraph();
 		
 		
-		QueryManager.getRequirementsSetFromUser();
-		QueryManager.executeQuery(ExploredRuleGraphs);
-		QueryManager.findBestMatches(ExpandedRuleGraph);
+		Recommender.getRequirementsSetFromUser();
+		Recommender.executeQuery(ExploredRuleGraphs);
+		Recommender.findBestMatches(ExpandedRuleGraph);
 		
 		
 		
 		UI.InitializeUI();
-		UI.setRuleExplorer(RuleExplorer);
+		UI.setRuleExplorer(rule_explorer_component);
 		*/
 		
 		

@@ -1,4 +1,7 @@
+package data_structures;
 import java.util.*;
+
+import reasoner_component.Query;
 
 public interface RuleGraph <T> {
 

@@ -1,5 +1,15 @@
+package rule_explorer_component;
 
 import java.util.*;
+
+import data_structures.ArrayListRuleGraph;
+import data_structures.Rule;
+import data_structures.RuleCategory;
+import data_structures.Term;
+import data_structures.TermSatisfactionValues;
+import reasoner_component.RuleEvaluator;
+import rule_base_component.RuleSetManager;
+import user_interaction_component.UserInteractionManager;
 
 public class RuleExplorer {
 

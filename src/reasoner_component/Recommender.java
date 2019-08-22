@@ -1,10 +1,17 @@
+package reasoner_component;
 import java.util.*;
+
+import data_structures.ArrayListRuleGraph;
+import data_structures.RuleGraph;
+import data_structures.TermPriority;
+import data_structures.TermSatisfactionValues;
+import user_interaction_component.UserInteractionManager;
 
 import java.math.*;
 
 
 
-public class QueryManager {
+public class Recommender {
 	
 	private static final Map<TermSatisfactionValues, Integer> TermScore = new HashMap<TermSatisfactionValues, Integer>();
 
@@ -96,7 +103,7 @@ public class QueryManager {
 
 	}
 */
-	public QueryManager (UserInteractionManager Cont)
+	public Recommender (UserInteractionManager Cont)
 	{
 		this.Cont = Cont;
 	}

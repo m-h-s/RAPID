@@ -1,4 +1,11 @@
+package reasoner_component;
 import java.util.*;
+
+import data_structures.ArrayListRuleGraph;
+import data_structures.Rule;
+import data_structures.RuleType;
+import data_structures.Term;
+import data_structures.TermSatisfactionValues;
 
 public class RuleEvaluator {
 

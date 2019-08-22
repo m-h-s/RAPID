@@ -1,3 +1,5 @@
+package user_interaction_component;
+
 import java.awt.Color;
 import java.util.*;
 import javax.swing.*;

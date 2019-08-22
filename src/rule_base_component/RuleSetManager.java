@@ -1,5 +1,14 @@
+package rule_base_component;
 import java.util.*;
+
+import data_structures.Rule;
+import data_structures.RuleCategory;
+import data_structures.RuleType;
+import data_structures.Term;
+import user_interaction_component.UserInteractionManager;
+
 import java.io.*;
+import java.nio.file.Paths;
 
 public class RuleSetManager {
 	
@@ -132,7 +141,7 @@ public class RuleSetManager {
 		 *  
 		 */
 		
-		importRuleFromFile ("Rule Base");
+		importRuleFromFile (Paths.get("").toAbsolutePath().toString() +"\\src\\rule_base_component\\Rule Base");
 		
 		
 

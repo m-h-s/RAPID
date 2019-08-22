@@ -1,3 +1,5 @@
+package data_structures;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -7,9 +9,7 @@ import java.util.*;
  * but is required to distinguish between a term whose value is not identified 
  * and one whose value is identified. 
  * */
-enum TermSatisfactionValues {
-	UNDET, DEN, PDEN, CONF, UNKNOWN, PSAT, SAT,DEN_BY_NO_REl, SAT_BY_NO_REL
-}
+
 
 /*
  * Note that the definition of term data structure is in abstract from; i.e. the
@@ -53,12 +53,11 @@ public class Term {
 	////////////////////////////////////////////////////
 	///////////////////////////////////////////////////
 
-	
-	public Term ()
-	{   //Creating an empty term.
+	public Term() { // Creating an empty term.
 		this.setPredicate("");
-		
+
 	}
+
 	public Term(String predicate, ArrayList arguments) {
 
 		this.setPredicate(predicate);
@@ -89,9 +88,8 @@ public class Term {
 	public void setArguments(ArrayList<String> arguments) {
 		this.arguments = arguments;
 	}
-	
-	public void setArguments(String argument)
-	{
+
+	public void setArguments(String argument) {
 		this.arguments.add(argument);
 	}
 
@@ -127,31 +125,27 @@ public class Term {
 		return term;
 
 	}
-	
-	
+
 	public String printTermInEnglish() {
 		String term = "";
 
 		term = term + this.predicate;
 
-		
 		// I think this part does not work correctly.
-			int i = 0;
-			
-			for (i = 0; i < this.arguments.size() - 1; i++)
-				if (this.arguments.get(i) !="")
-				    term = term + " of " + this.arguments.get(i) + ",";
-			
-			if (this.arguments.get(i) !="")
-				{ term = term + " of " + this.arguments.get(i) + "";
-				  System.out.println("argument is not empty");
-				}
-		
+		int i = 0;
+
+		for (i = 0; i < this.arguments.size() - 1; i++)
+			if (this.arguments.get(i) != "")
+				term = term + " of " + this.arguments.get(i) + ",";
+
+		if (this.arguments.get(i) != "") {
+			term = term + " of " + this.arguments.get(i) + "";
+			System.out.println("argument is not empty");
+		}
 
 		return term;
 
 	}
-	
 
 	public String printFinalSatStatus() {
 		String termFinalSatStat = "";
@@ -179,81 +173,79 @@ public class Term {
 	}
 
 	public boolean isEqual(Term t) {
-		//System.out.println("pred1 + pred2");
-		//System.out.println(this.getPredicate() + t.getPredicate());
-		//boolean HasEqualArg = ;
-		//System.out.println(HasEqualArg);
-		return Objects.equals(this.predicate.trim().toLowerCase(), t.getPredicate().trim().toLowerCase()) && this.hasEqualArguments(t) ;
-		
+		// System.out.println("pred1 + pred2");
+		// System.out.println(this.getPredicate() + t.getPredicate());
+		// boolean HasEqualArg = ;
+		// System.out.println(HasEqualArg);
+		return Objects.equals(this.predicate.trim().toLowerCase(), t.getPredicate().trim().toLowerCase())
+				&& this.hasEqualArguments(t);
 
 	}
-	
-	public boolean hasEqualArguments (Term t)
-	{
-		//System.out.println("########################");
+
+	public boolean hasEqualArguments(Term t) {
+		// System.out.println("########################");
 		boolean isEqual = true;
 
-		//System.out.println("this.length:"+ this.getArguments().size());
-		//System.out.println("t.length:"+ this.getArguments().size());
+		// System.out.println("this.length:"+ this.getArguments().size());
+		// System.out.println("t.length:"+ this.getArguments().size());
 		for (String arg1 : this.getArguments())
-			for (String arg2: t.getArguments())
-				{
-				     //System.out.println("arg1 + arg2");   
-				    // System.out.println(arg1 + arg2);
-					if (! Objects.equals(arg1.trim().toLowerCase(),arg2.trim().toLowerCase()))
-					{   
-						 System.out.println("arg1:"+arg1.length());
-					     System.out.println("arg2:"+arg2.length());
-						isEqual = false;
-						break;
-					}
+			for (String arg2 : t.getArguments()) {
+				// System.out.println("arg1 + arg2");
+				// System.out.println(arg1 + arg2);
+				if (!Objects.equals(arg1.trim().toLowerCase(), arg2.trim().toLowerCase())) {
+					System.out.println("arg1:" + arg1.length());
+					System.out.println("arg2:" + arg2.length());
+					isEqual = false;
+					break;
 				}
+			}
 		return isEqual;
 	}
 
 	public boolean matchString(String TermString) {
 		boolean MatchString = false;
-		
-		//System.out.println("This term :"+ this.printTerm().replaceAll("\\s", "").length());
-		//System.out.println("Received  term :"+ TermString.replaceAll("\\s", "").length());
+
+		// System.out.println("This term :"+ this.printTerm().replaceAll("\\s",
+		// "").length());
+		// System.out.println("Received term :"+ TermString.replaceAll("\\s",
+		// "").length());
 		/*
-		for (int i = 0; i< TermString.replaceAll("\\s", "").length(); i++)
-			{
-			   System.out.println (this.printTerm().replaceAll("\\s", "").toLowerCase().charAt(i) );
-			   System.out.println (TermString.replaceAll("\\s", "").charAt(i));
-			   System.out.println (this.printTerm().replaceAll("\\s", "").toLowerCase().charAt(i) == TermString.replaceAll("\\s", "").toLowerCase().charAt(i));
-			}
-			*/
-		
-		
-		if (this.printTerm().replaceAll("\\s", "").toLowerCase().contains(TermString.replaceAll("\\s", "").toLowerCase()))
-		//		 /*&& TermString.replaceAll("\\s", "").toLowerCase().contains(this.printTerm().replaceAll("\\s", "").toLowerCase())*/ )
-		
-		//if (Objects.equals(TermString.replaceAll("\\s", "").toLowerCase(), this.printTerm().replaceAll("\\s", "").toLowerCase()))	
-		{ 
-			
-				
+		 * for (int i = 0; i< TermString.replaceAll("\\s", "").length(); i++) {
+		 * System.out.println (this.printTerm().replaceAll("\\s",
+		 * "").toLowerCase().charAt(i) ); System.out.println
+		 * (TermString.replaceAll("\\s", "").charAt(i)); System.out.println
+		 * (this.printTerm().replaceAll("\\s", "").toLowerCase().charAt(i) ==
+		 * TermString.replaceAll("\\s", "").toLowerCase().charAt(i)); }
+		 */
+
+		if (this.printTerm().replaceAll("\\s", "").toLowerCase()
+				.contains(TermString.replaceAll("\\s", "").toLowerCase()))
+		// /*&& TermString.replaceAll("\\s",
+		// "").toLowerCase().contains(this.printTerm().replaceAll("\\s",
+		// "").toLowerCase())*/ )
+
+		// if (Objects.equals(TermString.replaceAll("\\s", "").toLowerCase(),
+		// this.printTerm().replaceAll("\\s", "").toLowerCase()))
+		{
+
 			MatchString = true;
-		  
+
 		}
 		return MatchString;
 	}
-   
-	
-	public boolean hasEqualTermString (String TermString )
-	{
+
+	public boolean hasEqualTermString(String TermString) {
 		boolean MatchString = false;
-		if (Objects.equals(TermString.replaceAll("\\s", "").toLowerCase(), this.printTerm().replaceAll("\\s", "").toLowerCase()))	
-		{ 
-			
-				
+		if (Objects.equals(TermString.replaceAll("\\s", "").toLowerCase(),
+				this.printTerm().replaceAll("\\s", "").toLowerCase())) {
+
 			MatchString = true;
-		  
+
 		}
 		return MatchString;
-		
+
 	}
-	
+
 	public Term deepCopyTerm() {
 
 		ArrayList<String> ArgumentsCopy = new ArrayList<String>();
@@ -265,45 +257,38 @@ public class Term {
 		return TermCopy;
 
 	}
-	
-	public void parseTerm (String TermString)
-	{
-		
-		// # This parser does not parse more than one topic. 
+
+	public void parseTerm(String TermString) {
+
+		// # This parser does not parse more than one topic.
 		boolean TopicExpected = false;
 		boolean TypeExpected = true;
-		String Topic ="";
-		String Type ="";
-		
+		String Topic = "";
+		String Type = "";
+
 		TermString = TermString.trim();
-		
-		for (int i=0; i< TermString.length(); i++)
-		{
-			char c = TermString.charAt(i); 
-			if (c == '[')
-			{
+
+		for (int i = 0; i < TermString.length(); i++) {
+			char c = TermString.charAt(i);
+			if (c == '[') {
 				TopicExpected = true;
 				TypeExpected = false;
 			}
-			
-			else if (c == ']')
-			{
+
+			else if (c == ']') {
 				TopicExpected = false;
-			}
-			else if (TopicExpected)
-			{
+			} else if (TopicExpected) {
 				Topic = Topic + c;
-				//System.out.println(Type);
+				// System.out.println(Type);
 			}
-			
-			else if (TypeExpected)
-			{
+
+			else if (TypeExpected) {
 				Type = Type + c;
 			}
-			// else if (c == ',')  another topic expected. This topic ends.
+			// else if (c == ',') another topic expected. This topic ends.
 		}
-		//System.out.println(Type);
-		//System.out.println(Topic);
+		// System.out.println(Type);
+		// System.out.println(Topic);
 		this.setPredicate(Type.trim());
 		this.setArguments(Topic.trim());
 	}

@@ -1,8 +1,17 @@
+package user_interaction_component;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.Timer;
+
+import reasoner_component.QueriedTerm;
+import reasoner_component.Query;
+import reasoner_component.Recommender;
+import rule_explorer_component.RuleExplorer;
+import data_structures.*;
+//import data_structures.TermSatisfactionValues;
 
 enum UserMode {
 	Exploration, Query, ExploreOneByOne, FindBestAnswer
@@ -16,7 +25,7 @@ public class UserInteractionManager {
 
 	private UserInterface UI;
 	private RuleExplorer RuleExplorer;
-	private QueryManager QueryManager;
+	private Recommender QueryManager;
 
 	private UserMode UserMode;
 
@@ -59,7 +68,7 @@ public class UserInteractionManager {
 	public UserInteractionManager() {
 		UI = new UserInterface();
 		RuleExplorer = new RuleExplorer(this);
-		QueryManager = new QueryManager(this);
+		QueryManager = new Recommender(this);
 
 		UI.InitializeUI();
 		UI.setController(this);
@@ -162,10 +171,10 @@ public class UserInteractionManager {
 					"Do you want to explore answers one by one or find the best answer? ");
 
 			/*
-			 * RuleExplorer.exploreExpandedRuleGraphOneByOne();
+			 * rule_explorer_component.exploreExpandedRuleGraphOneByOne();
 			 * 
-			 * ExploredRuleGraphs = RuleExplorer.getExploredRuleGraphs(); ExpandedRuleGraph
-			 * = RuleExplorer.getExpandedRuleGraph();
+			 * ExploredRuleGraphs = rule_explorer_component.getExploredRuleGraphs(); ExpandedRuleGraph
+			 * = rule_explorer_component.getExpandedRuleGraph();
 			 * 
 			 * getRequirementsSetFromUser();
 			 * 
@@ -359,8 +368,8 @@ public class UserInteractionManager {
 	 * q.printQueriedTerm());
 	 * 
 	 * printInConversationHistory("Answer", "End Of Requirements Specification");
-	 * QueryManager.executeQuery(this.ReqSet, ExploredRuleGraphs);
-	 * QueryManager.findBestMatches(ExpandedRuleGraph); }
+	 * Recommender.executeQuery(this.ReqSet, ExploredRuleGraphs);
+	 * Recommender.findBestMatches(ExpandedRuleGraph); }
 	 * 
 	 * }
 	 */

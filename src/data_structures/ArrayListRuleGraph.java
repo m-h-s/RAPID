@@ -1,4 +1,8 @@
+package data_structures;
 import java.util.*;
+
+import reasoner_component.QueriedTerm;
+import reasoner_component.Query;
 
 public class ArrayListRuleGraph implements RuleGraph {
 

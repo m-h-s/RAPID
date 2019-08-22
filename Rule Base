@@ -1,0 +1,258 @@
+############################ NFR Requirements Catalogues ######################################################
+#############################  NFR to NFR Catalogues (NFR <- NFR) #####################################################
+
+
+(Access Simplicity [API], Access Duration [API], Access Rate [API]) ---AND---> Accessibility [API]:NF_REF
+
+(Compatibility with Minor Changes [API], Compatibility with Major Changes [API]) ---AND---> Evolvability [API]:NF_REF
+
+(Understandability [API], Efficiency [API], Usage simplicity [API], Consistency [API]) ---AND---> Usability [API]:NF_REF
+
+(Memorability [API]) ---HELP---> Understandability [API]g:NF_REF
+
+(Response Time [API], Latency [API], Throughput [API], Availability [API]) ---AND---> Performance [API]:NF_REF
+
+(Server Side Extensibility [API], Client Side Extensibility [API]) ---AND---> Extensibility [API]:NF_REF
+
+(Flexibility in Message Format [API], Flexibility in Message Parameter [API], Flexibility in Communication Protocol [API]) ---AND---> Interoperability [API]:NF_REF
+
+(Confidentiality [API], Privacy [API], Operational Security [API], Reliability [API]) ---AND---> Security [API]:NF_REF
+
+(Message Confidentiality [API], Access Confidentiality [API]) ---AND---> Confidentiality [API]:NF_REF
+
+(Robustness [API], Traceability [API]) ---AND---> Operational Security [API]:NF_REF
+
+(Integrity [API]) ---HELP---> Reliability [API]:NF_REF
+
+(Usability [API]) ---HELP---> Adoptability [API]:NF_REF
+
+#################################NFR Operationalization Catalogues###########################################
+#################################  NFR to FR Catalogues (NFR <- FR (what type?)) ########################################################
+
+
+(Interface Translation []) ---HELP---> Compatibility with Minor Changes [API] : OP_NF_REF
+
+(Supporting Multiple Versions of API at the Same Time []) ---HELP---> Compatibility with Major Changes [API] : OP_NF_REF
+
+(Access Control [API]) ---HELP---> Access Confidentiality [API] : OP_NF_REF
+
+(Secure Communication Channels [], Message Encryption [])---OR---> Message Confidentiality [API] : OP_NF_REF
+
+(End User Notification and Approval upon API Access [], Data Masking []) ---OR---> Privacy [API] : OP_NF_REF
+
+(Activity Logging [API], User Auditing [API]) ---OR---> Traceability [API] : OP_NF_REF
+
+(Failure Management [API], Threat Management [API]) ---OR---> Robustness [API] : OP_NF_REF
+
+(Backend Service Concurrency [] , Load Distribution and Balancing []) ---OR--->Throughput [API] : OP_NF_REF
+
+(Backend Service Replication []) ---HELP---> Availability [API]:OP_NF_REF
+
+(Message Format Conversion []) ---HELP---> Flexibility in message Format [API]: OP_NF_REF
+
+(API Gateway [], Service Registration [], Service Discovery and Routing [], Service Mapping and Composition [], Service Orchestration [] ) ---OR---> Server Side Extensibility [API]: OP_NF_REF
+
+(Interface Translation []) ---HELP---> Flexibility in Message Parameters [API]: OP_NF_REF
+
+(Protocol Translation []) ---HELP---> Flexibility in Communication Protocol [API]: OP_NF_REF
+
+################################Functional Requirement to Functional Requirement Catalogues###################
+################################  FR to FR Catalogues (FR (Coarse-Grained) <- FR (Fine-Grained)) ####################
+
+(Access Authorization [API], Key and Certificate Management []) ---AND---> Access Control [API] : OP_FF_REF
+
+(Failure Detection [API], Failure Prevention [API], Failure Recovery [API]) ---OR---> Failure Management [API]: OP_FF_REF
+
+(Threat Detection [API], Threat Prevention [API]) ---OR---> Threat Management [API] : OP_FF_REF
+
+(Backend Service Replication [], Congestion Control [API]) ---OR---> Failure Prevention [API] : OP_FF_REF
+
+(Throttling []) ---MAKE---> Congestion Control [API] : OP_FF_REF
+
+(Providing Fall Backs []) ---MAKE---> Failure Recovery [API] : OP_FF_REF
+
+(Traffic Monitoring [API]) ---MAKE---> Threat Detection [API] : OP_FF_REF
+
+(Detecting Unusual Request Loads [], Detecting Unusual Request Patterns []) ---OR---> Traffic Monitoring [API] : OP_FF_REF
+
+(Caching [], Request Traffic Prioritization [] ) ---OR---> Response Time  [API ]: OP_FF_REF
+
+(Caching Responses [API], Caching and Maintaining Connections to Backend Services [API ] ) ---OR---> Caching  [] : OP_FF_REF
+
+(One to One Communication Style [API], One to Many Communication Style [API]) ---OR---> Communication Style [API]: OP_FF_REF
+
+
+###########################Functional Requirement to Design Alternative (Implementation) Catalogues############
+###############################################################################################################
+
+(API-Key [], Username and Password [], Mutual Certificate Based Authentication X.509 [], Open Authorization Version 2.0 [], OpenID Connect Version 1.0 []) ---OR---> Access Authorization [API] : OP_FI_REF
+
+(Circuit Breaker[], Response Time-Outs []) ---OR---> Failure Detection [API] : OP_FI_REF
+
+(Round-Rubin Load Distribution [], Weighted Round-Rubin Load Distribution [], Least Connection Load Distribution [], Weighted Least Connection Load Distribution [], Random Load Distribution []) ---OR---> Load Distribution and Balancing [] : OP_FI_REF
+
+(Returning Empty Responses [], Returning Cached Responses []) ---OR---> Providing Fall Backs [] : OP_FI_REF
+
+(Consumption Quota [], Concurrent Rate Limit [], Spike Arrest []) ---OR---> Throttling [] : OP_FI_REF
+
+(Caching Most Frequent Responses [], Caching Most Recent Responses [], Caching Most Probable Responses []) ---OR---> Caching Responses [API] : OP_FI_REF
+
+(Connection Pooling []) ---MAKE---> Caching and Maintaining Connections to Backend Services [API] : OP_FI_REF
+
+(Central Gateway [], Multiple Gateways Backend for Frontend []) ---OR---> API Gateway []: OP_FI_REF
+
+(Self Service Registration [], Third Party Service Registration []) ---OR---> Service Registration []: OP_FI_REF
+
+(Server Side Service Discovery and Routing [], Client Side Service Discovery and Routing []) ---OR---> Service Discovery and Routing []: OP_FI_REF
+
+(Server Side Service Mapping and Composition [], Server Side Service Mapping and Composition []) ---OR---> Service Composition [] : OP_FI_REF
+
+(Server Side Two-Phase Transaction Management [], Client Side Two-Phase Transaction Management []) ---OR---> Service Orchestration [] : OP_FI_REF
+
+(JSON_XML Convertor []) ---MAKE---> Message Format Conversion [] : OP_FI_REF
+
+(SOAP-REST Translation []) ---MAKE---> Protocol Translation [] : OP_FI_REF
+
+(Synchronous Communication [], Asynchronous Communication [], Synchronous to Asynchronous Communication []) ---OR---> One to One Communication Style [API]: OP_FI_REF
+
+(Publish and Subscribe []) ---MAKE---> One to Many Communication Style [API]: OP_FI_REF
+
+(Adapter []) ---MAKE---> Interface Translation [] : OP_FI_REF
+
+(Multiple Service Instances Handling Multiple API versions [], Single Service Instance Handling Multiple API versions []) ---OR---> Supporting Multiple Versions of API at the Same Time [] : OP_FI_REF
+
+
+##########################Correlation Catalogues################################################################
+############################Relationship between design alternatives and NFRS###################################
+
+(API-Key []) ---MAKE---> Access Simplicity [API] : COR
+(API-Key []) ---MAKE---> Usage Simplicity [API] : COR
+(API-Key []) ---MAKE---> Latency [API] : COR
+(API-Key []) ---HELP---> Access Confidentiality [API] : COR
+(API-Key []) ---BREAK---> Message Confidentiality [API] : COR
+(API-Key []) ---BREAK---> Privacy [API] : COR
+
+
+
+(Username and Password []) ---SOMEPLUS---> Access Simplicity [API] : COR
+(Username and Password []) ---MAKE---> Usage Simplicity [API] : COR
+(Username and Password []) ---SOMEMINUS---> Latency [API] : COR
+(Username and Password []) ---HELP---> Access Confidentiality [API] : COR
+(Username and Password []) ---SOMEPLUS---> Message Confidentiality [API] : COR
+(Username and Password []) ---HELP---> Privacy [API] : COR
+
+
+(Mutual Certificate Based Authentication X.509 []) ---BREAK---> Access Simplicity [API] : COR
+(Mutual Certificate Based Authentication X.509 []) ---BREAK---> Usage Simplicity [API] : COR
+(Mutual Certificate Based Authentication X.509 []) ---SOMEMINUS---> Latency [API] : COR
+(Mutual Certificate Based Authentication X.509 []) ---MAKE---> Access Confidentiality [API] : COR
+(Mutual Certificate Based Authentication X.509 []) ---MAKE---> Message Confidentiality [API] : COR
+(Mutual Certificate Based Authentication X.509 []) ---BREAK---> Privacy [API] : COR
+
+
+(Open Authorization Version 2.0 []) ---SOMEMINUS---> Access Simplicity [API] : COR
+(Open Authorization Version 2.0 []) ---SOMEMINUS---> Usage Simplicity [API] : COR
+(Open Authorization Version 2.0 []) ---SOMEMINUS---> Latency [API] : COR
+(Open Authorization Version 2.0 []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+(Open Authorization Version 2.0 []) ---SOMEPLUS---> Message Confidentiality [API] : COR
+(Open Authorization Version 2.0 []) ---SOMEPLUS---> Privacy [API] : COR
+
+(OpenID Connect Version 1.0 []) ---SOMEMINUS---> Access Simplicity [API] : COR
+(OpenID Connect Version 1.0 []) ---SOMEMINUS---> Usage Simplicity [API] : COR
+(OpenID Connect Version 1.0 []) ---BREAK---> Latency [API]: COR
+(OpenID Connect Version 1.0 []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+(OpenID Connect Version 1.0 []) ---SOMEPLUS---> Message Confidentiality [API] : COR
+(OpenID Connect Version 1.0 []) ---SOMEPLUS---> Privacy [API] : COR
+
+(Spike Arrest []) ---SOMEMINUS---> Availability [API] : COR
+(Spike Arrest []) ---SOMEMINUS---> Latency [API] : COR
+(Spike Arrest []) ---MAKE---> Robustness [API] : COR
+(Spike Arrest []) ---SOMEMINUS---> Integrity [API] : COR
+
+
+(Consumption Quota []) ---SOMEMINUS---> Availability [API] : COR
+(Consumption Quota []) ---SOMEPLUS---> Robustness [API] : COR
+(Consumption Quota []) ---MAKE---> Integrity [API] : COR
+
+(Concurrent Rate Limit []) ---SOMEMINUS---> Availability [API] : COR
+(Concurrent Rate Limit []) ---SOMEMINUS---> Latency [API] : COR
+(Concurrent Rate Limit []) ---MAKE---> Robustness [API] : COR
+(Concurrent Rate Limit []) ---SOMEMINUS---> Integrity [API] : COR
+
+(Synchronous Communication []) ---BREAK---> Throughput [API] : COR
+(Synchronous Communication []) ---MAKE---> Latency [API] : COR
+(Synchronous Communication []) ---SOMEMINUS---> Robustness [API] : COR
+(Synchronous Communication []) ---SOMEPLUS---> Integrity [API] : COR
+
+
+(Asynchronous Communication []) ---MAKE---> Throughput [API] : COR
+(Asynchronous Communication []) ---SOMEMINUS---> Latency [API] : COR
+(Asynchronous Communication []) ---SOMEPLUS---> Robustness [API] : COR
+(Asynchronous Communication []) ---SOMEMINUS---> Integrity [API] : COR
+
+(Synchronous to Asynchronous Communication []) ---MAKE---> Throughput [API] : COR
+(Synchronous to Asynchronous Communication []) ---SOMEPLUS---> Latency [API] : COR
+(Synchronous to Asynchronous Communication []) ---MAKE---> Robustness [API] : COR
+(Synchronous to Asynchronous Communication []) ---MAKE---> Integrity [API] : COR
+(Synchronous to Asynchronous Communication []) ---SOMEPLUS---> Flexibility in Communication Protocol [API] : COR
+
+(Publish and Subscribe []) ---SOMEPLUS---> Access Simplicity [API] : COR
+(Publish and Subscribe []) ---MAKE---> Server Side Extensibility [API] : COR
+(Publish and Subscribe []) ---MAKE---> Client Side Extensibility [API] : COR
+(Publish and Subscribe []) ---HELP---> Access Confidentiality [API] : COR
+(Publish and Subscribe []) ---SOMEMINUS---> Response Time [API] : COR
+
+(Central Gateway []) ---MAKE---> Server Side Extensibility [API] : COR
+(Central Gateway []) ---SOMEMINUS---> Throughput [API] : COR
+(Central Gateway []) ---SOMEMINUS---> Response Time [API] : COR
+(Central Gateway []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+
+(Multiple Gateway, Backend for Frontend []) ---MAKE---> Server Side Extensibility [API] : COR
+(Multiple Gateway, Backend for Frontend []) ---SOMEPLUS---> Throughput [API] : COR
+(Multiple Gateway, Backend for Frontend []) ---SOMEMINUS---> Response Time [API] : COR
+(Multiple Gateway, Backend for Frontend []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+
+(Third-Party Registration []) ---MAKE---> Usage Simplicity [API] : COR
+(Third-Party Registration []) ---MAKE---> Server Side Extensibility [API] : COR
+(Third-Party Registration []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+
+(Self Registration []) ---SOMEMINUS---> Usage Simplicity [API] : COR
+(Self Registration []) ---SOMEPLUS---> Server Side Extensibility [API] : COR
+(Self []) ---SOMEMINUS---> Access Confidentiality [API] : COR
+
+(Server Side Service Discovery and Routing []) ---MAKE---> Usage Simplicity [API] : COR
+(Server Side Service Discovery and Routing []) ---MAKE---> Server Side Extensibility [API] : COR
+(Server Side Service Discovery and Routing []) ---MAKE--->Latency [API] : COR
+(Server Side Service Discovery and Routing []) ---SOMEPLUS---> Throughput [API] : COR
+(Server Side Service Discovery and Routing []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+
+(Client Side Service Discovery and Routing []) ---SOMEMINUS---> Usage Simplicity [API] : COR
+(Client Side Service Discovery and Routing []) ---SOMEPLUS--->  Server Side Extensibility [API] : COR
+(Client Side Service Discovery and Routing []) ---SOMEMINUS---> Latency [API] : COR
+(Client Side Service Discovery and Routing []) ---SOMEMINUS---> Throughput [API] : COR
+(Client Side Service Discovery and Routing []) ---SOMEMINUS---> Access Confidentiality [API] : COR
+
+(Server Side API Mapping and Composition []) ---MAKE---> Usage Simplicity [API] : COR
+(Server Side API Mapping and Composition []) ---MAKE---> Server Side Extensibility [API] : COR
+(Server Side API Mapping and Composition []) ---MAKE---> Latency [API] : COR
+(Server Side API Mapping and Composition []) ---SOMEPLUS---> Throughput [API] : COR
+(Server Side API Mapping and Composition []) ---SOMEPLUS---> Access Confidentiality [API] : COR
+
+(Client Side API Mapping and Composition []) ---SOMEMINUS---> Usage Simplicity [API] : COR
+(Client Side API Mapping and Composition []) ---SOMEPLUS---> Server Side Extensibility [API] : COR
+(Client Side API Mapping and Composition []) ---SOMEMINUS---> Latency [API] : COR
+(Client Side API Mapping and Composition []) ---SOMEMINUS---> Throughput [API] : COR
+(Client Side API Mapping and Composition []) ---SOMEMINUS---> Access Confidentiality [API] : COR
+
+(Server Side Two-Phase Transaction Management []) ---MAKE---> Usage Simplicity [API] : COR
+(Server Side Two-Phase Transaction Management []) ---SOMEPLUS---> Server Side Extensibility [API] : COR
+(Server Side Two-Phase Transaction Management []) ---MAKE---> Latency [API] : COR
+(Server Side Two-Phase Transaction Management []) ---MAKE---> Throughput [API] : COR
+(Server Side Two-Phase Transaction Management []) ---SOMEPLUS---> Robustness [API] : COR
+
+(Client Side Two-Phase Transaction Management []) ---BREAK---> Usage Simplicity [API] : COR
+(Client Side Two-Phase Transaction Management []) ---SOMEPLUS---> Server Side Extensibility [API] : COR
+(Client Side Two-Phase Transaction Management []) ---BREAK---> Latency [API] : COR
+(Client Side Two-Phase Transaction Management []) ---BREAK---> Throughput [API] : COR
+
+

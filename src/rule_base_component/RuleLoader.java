@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import data_structures.*;
 
-
 public class RuleLoader {
 
 	private ArrayListRuleGraph RuleSet;
@@ -23,12 +22,11 @@ public class RuleLoader {
 	public void ruleSetInitializer() {
 
 		/*
-		 * #####Is it required to load all the rules? If not, which portion should be
-		 * loaded. 
-		 * #####Is it required to load the rule set at all? In this case the
-		 * interactions between the rule base and the program increases and the time
-		 * increases. #####Should we insert the rules by adding columns about the next
-		 * rule and the previous rule?
+		 * ##### We currently load all the rules. Is it required to load all the rules?
+		 * If not, which portion should be loaded. In this case the interactions between
+		 * the rule base and the program increases and the time increases. #####Should
+		 * we insert the rules by adding columns about the next rule and the previous
+		 * rule?
 		 * 
 		 */
 
@@ -47,7 +45,6 @@ public class RuleLoader {
 			while ((RuleString = bf.readLine()) != null) {
 				// System.out.println ("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 				// System.out.println("Rule String"+ RuleString);
-				// Create an empty rule.
 				if (!RuleString.trim().isEmpty() && !RuleString.trim().startsWith("###")) {
 					Rule r = new Rule();
 					r.ParseRule(RuleString);
@@ -69,6 +66,5 @@ public class RuleLoader {
 	public void addRule(Rule newRule) {
 		RuleSet.addRule(newRule);
 	}
-
 
 }

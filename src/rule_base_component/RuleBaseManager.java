@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class RuleBaseManager {
 
-	//private ArrayList<Rule> RuleSet;
+	// private ArrayList<Rule> RuleSet;
 	public ArrayListRuleGraph RuleSet;
 	private UserInteractionManager Cont;
 	private RuleLoader RuleLoader;
@@ -21,26 +21,20 @@ public class RuleBaseManager {
 
 		RuleSet = new ArrayListRuleGraph();
 		RuleLoader = new RuleLoader(RuleSet);
-		// printRuleSet ();
+		// print rule base as loaded from the file
 		Cont.receiveOutputFromModel("other", RuleSet.RuleBaseToString());
 	}
 
-	
-	
 	public ArrayList<Rule> matchLeftHandSide(ArrayList LHS) {
-		
+
 		return RuleSet.findLeftHandSide(LHS);
-	
-	}
-	
-	public ArrayList<Rule> matchRightHandSide(Term RHS) {
-		
-		return RuleSet.findRightHandSide(RHS);
-	
+
 	}
 
-	// Iterative right-hand-side matching. In order to incrementally expand the
-	// related portion of the graph.
-	// Left-Hand Side Matching.
+	public ArrayList<Rule> matchRightHandSide(Term RHS) {
+
+		return RuleSet.findRightHandSide(RHS);
+
+	}
 
 }

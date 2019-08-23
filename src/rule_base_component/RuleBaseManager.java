@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 public class RuleBaseManager {
 
-	public ArrayList<Rule> RuleSet;
+	private ArrayList<Rule> RuleSet;
 	private UserInteractionManager Cont;
 	private RuleLoader RuleLoader;
 

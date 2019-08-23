@@ -13,14 +13,6 @@ import rule_explorer_component.RuleExplorer;
 import data_structures.*;
 //import data_structures.TermSatisfactionValues;
 
-enum UserMode {
-	Exploration, Query, ExploreOneByOne, FindBestAnswer
-}
-
-enum ExpectedQueryItem {
-	Req, Type, Topic, PRIORITY, SatVal
-}
-
 public class UserInteractionManager {
 
 	private UserInterface UI;
@@ -67,19 +59,20 @@ public class UserInteractionManager {
 
 	public UserInteractionManager() {
 		UI = new UserInterface();
+		UI.InitializeUI();
+		UI.setController(this);
+		
+		
 		RuleExplorer = new RuleExplorer(this);
 		QueryManager = new Recommender(this);
 
-		UI.InitializeUI();
-		UI.setController(this);
+		
 
 		this.ExpectedItem = ExpectedQueryItem.Req;
 		this.ReqSet = new Query();
-
 		this.TheMostRecentUSerInput = "";
 
 		resetConversationNumber();
-
 		showStartMessage();
 	}
 
@@ -98,49 +91,52 @@ public class UserInteractionManager {
 		 * Right now the switch statements do not work correctly. The logic of exit is
 		 * not correct.
 		 */
+		UserInput = UserInput.toLowerCase().trim();
 
-		if (Objects.equals(UserInput.toLowerCase().trim(), "exit") && this.UserMode != UserMode.Query) {
-			printInConversationHistory("Other", UserInput);
-			printInConversationHistory("Question", commandMessage);
+		if (Objects.equals(UserInput, "exit")) {
+			if (this.UserMode != UserMode.RECOM) {
+				printInConversationHistory("Other", UserInput);
+				printInConversationHistory("Question", commandMessage);
+			}
+
+			else {
+				RuleExplorer.resetRuleGraph();
+				processRequirements(UserInput);
+				printInConversationHistory("Question", commandMessage);
+			}
 		}
 
-		else if (Objects.equals(UserInput.toLowerCase().trim(), "exit") && this.UserMode == UserMode.Query) {
-			processRequirements(UserInput);
-			printInConversationHistory("Question", commandMessage);
-		}
-
-		else if (Objects.equals(UserInput.toLowerCase().trim(), "figure out")) {
-			this.UserMode = UserMode.Exploration;
+		else if (Objects.equals(UserInput, "figure out")) {
+			this.UserMode = UserMode.EXPLOR;
 			printInConversationHistory("Other", UserInput);
 			printInConversationHistory("Question", designMessage + requirementSpecificationMessage);
 		}
 
-		else if (Objects.equals(UserInput.toLowerCase().trim(), "find"))
-			this.UserMode = UserMode.Query;
 
-		else if (Objects.equals(UserInput.toLowerCase().trim(), "analyze")) {
+		else if (Objects.equals(UserInput, "analyze")) {
 			printInConversationHistory("Other", UserInput);
-			this.UserMode = UserMode.ExploreOneByOne;
+			this.UserMode = UserMode.ANALYZ;
 			printInConversationHistory("Question", analysisSpecificationMessage);
 		}
 
-		else if (Objects.equals(UserInput.toLowerCase().trim(), "recommend")) {
+		else if (Objects.equals(UserInput, "recommend")) {
 			printInConversationHistory("Other", UserInput);
-			this.UserMode = UserMode.Query;
+			this.UserMode = UserMode.RECOM;
 			RuleExplorer.exploreExpandedRuleGraphOneByOne();
 			ExploredRuleGraphs = RuleExplorer.getExploredRuleGraphs();
 			ExpandedRuleGraph = RuleExplorer.getExpandedRuleGraph();
 			printInConversationHistory("Question", RequirementsSpecificationMessage);
 			getRequirementsSetFromUser();
-		} else if (this.UserMode == UserMode.Exploration)
-			exploreDesigns(UserInput);
+		} 
+		else if (this.UserMode == UserMode.EXPLOR)
+			exploreRuleBase(UserInput);
 
-		else if (this.UserMode == UserMode.Query)
+		else if (this.UserMode == UserMode.RECOM)
 			processRequirements(UserInput);
 
-		else if (this.UserMode == UserMode.ExploreOneByOne) {
+		else if (this.UserMode == UserMode.ANALYZ) {
 			printInConversationHistory("Other", UserInput);
-			// printInConversationHistory ("Answer", "\n----------------Exploration
+			// printInConversationHistory ("Answer", "\n----------------EXPLOR
 			// begins---------------\n");
 			RuleExplorer.analyzeSourceTermsByUser(UserInput);
 			printInConversationHistory("Question", analysisMessage + analysisSpecificationMessage);
@@ -153,46 +149,11 @@ public class UserInteractionManager {
 
 	}
 
-	public void exploreDesigns(String UserInput) {
-		if (!Objects.equals(UserInput.toLowerCase().replaceAll("\\s", ""), "exit")) {
+	public void exploreRuleBase(String UserInput) {
+			
 			TheMostRecentUSerInput = UserInput;
-			sendUserInputToRuleExplorer(UserInput);
-		}
-
-		else {
-
-			printInConversationHistory("other", "exit");
-
-			UI.appendToInfoPane("\n ***********************Expanded Graph************************\n"
-					+ RuleExplorer.ExpandedRuleGraphtoString()
-					+ "\n ####################Expansion Done###################### \n");
-
-			printInConversationHistory("Question",
-					"Do you want to explore answers one by one or find the best answer? ");
-
-			/*
-			 * rule_explorer_component.exploreExpandedRuleGraphOneByOne();
-			 * 
-			 * ExploredRuleGraphs = rule_explorer_component.getExploredRuleGraphs(); ExpandedRuleGraph
-			 * = rule_explorer_component.getExpandedRuleGraph();
-			 * 
-			 * getRequirementsSetFromUser();
-			 * 
-			 */
-		}
-	}
-	/*
-	 * public void getUserInputFromUI(String UserInput) {
-	 * 
-	 * if (this.UserMode == UserMode.Exploration) exploreDesigns(UserInput);
-	 * 
-	 * else if (this.UserMode == UserMode.Query) processRequirements(UserInput);
-	 * 
-	 * }
-	 */
-
-	public void sendUserInputToRuleExplorer(String UserInput) {
-		RuleExplorer.getUserInputFromController(UserInput);
+			RuleExplorer.getUserInputFromController(UserInput);
+			
 	}
 
 	public void receiveOutputFromModel(String AnswerName, String Answer) {
@@ -305,75 +266,6 @@ public class UserInteractionManager {
 
 	}
 
-	/*
-	 * 
-	 * ################ This version got the keywords for the requirements one by
-	 * one. ################ It did not take a complete sentence. public void
-	 * processRequirementsOldVersion(String UserInput) {
-	 * 
-	 * this.TheMostRecentUSerInput = UserInput;
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * if (!UserInput.replaceAll("\\s", "").toLowerCase().contains("exit")) {
-	 * 
-	 * 
-	 * if (this.ExpectedItem == ExpectedQueryItem.Req) { UserInputForReq =
-	 * UserInput; userInputforTerm = new Term();
-	 * userInputforTerm.parseTerm(UserInputForReq); //
-	 * UI.appendToConversationHistory ("magenta", userInputforTerm.printTerm()
-	 * +"\n"); printInConversationHistory("Other", userInputforTerm.printTerm());
-	 * this.ExpectedItem = ExpectedQueryItem.PRIORITY; getRequirementsSetFromUser();
-	 * }
-	 * 
-	 * 
-	 * 
-	 * else if (this.ExpectedItem == ExpectedQueryItem.Type) {
-	 * 
-	 * UserInputForReqType = UserInput;
-	 * 
-	 * this.ExpectedItem = ExpectedQueryItem.Topic; //
-	 * UI.appendToConversationHistory ("magenta", UserInputForReqType+"\n");
-	 * printInConversationHistory("Other", UserInputForReqType);
-	 * getRequirementsSetFromUser();
-	 * 
-	 * }
-	 * 
-	 * else if (this.ExpectedItem == ExpectedQueryItem.Topic) { UserInputForReqTopic
-	 * = UserInput; userInputforTerm = new Term(UserInputForReqType,
-	 * UserInputForReqTopic); // UI.appendToConversationHistory ("magenta",
-	 * userInputforTerm.printTerm()+"\n"); printInConversationHistory("Other",
-	 * userInputforTerm.printTerm()); this.ExpectedItem =
-	 * ExpectedQueryItem.PRIORITY; getRequirementsSetFromUser();
-	 * 
-	 * }
-	 * 
-	 * else if (this.ExpectedItem == ExpectedQueryItem.PRIORITY) {
-	 * userInputForPriority = TermPriority.valueOf(UserInput.toUpperCase());
-	 * this.ExpectedItem = ExpectedQueryItem.SatVal;
-	 * printInConversationHistory("Other", userInputForPriority.toString());
-	 * getRequirementsSetFromUser(); }
-	 * 
-	 * else if (this.ExpectedItem == ExpectedQueryItem.SatVal) { this.ExpectedItem =
-	 * ExpectedQueryItem.Req; userInputforExpectedSatsifaction =
-	 * TermSatisfactionValues.valueOf(UserInput.toUpperCase());
-	 * //userInputforExpectedSatsifaction = TermSatisfactionValues.SAT;
-	 * this.ReqSet.addQueriedTerm(userInputforTerm, userInputForPriority,
-	 * userInputforExpectedSatsifaction); // printInConversationHistory("Other",
-	 * userInputforExpectedSatsifaction.toString()); getRequirementsSetFromUser(); }
-	 * } else { printInConversationHistory("Other", "exit"); for (QueriedTerm q :
-	 * this.ReqSet.getQuerySet()) printInConversationHistory("Answer",
-	 * q.printQueriedTerm());
-	 * 
-	 * printInConversationHistory("Answer", "End Of Requirements Specification");
-	 * Recommender.executeQuery(this.ReqSet, ExploredRuleGraphs);
-	 * Recommender.findBestMatches(ExpandedRuleGraph); }
-	 * 
-	 * }
-	 */
-
 	public void getRequirementsSetFromUser() {
 		/*
 		 * 1- Get Requirements (Term) 2- Get priority of Requirement 3- Get Expected
@@ -383,8 +275,8 @@ public class UserInteractionManager {
 		 * existing in the rule set.
 		 */
 
-		if (this.UserMode == UserMode.Exploration) {
-			this.UserMode = UserMode.Query;
+		if (this.UserMode == UserMode.EXPLOR) {
+			this.UserMode = UserMode.RECOM;
 			printInConversationHistory("Question", "Please Specify Expected Requirements");
 		}
 
@@ -445,31 +337,6 @@ public class UserInteractionManager {
 
 	}
 
-	/*
-	 * public void printInConversationHistory(String OutputType, String Output, int
-	 * i) { if ((OutputType == "Answer" || OutputType == "Question") && i == -1) {
-	 * 
-	 * Timer userInputforTerm = new Timer(1000, null); userInputforTerm.start();
-	 * 
-	 * userInputforTerm.addActionListener(new ActionListener() {
-	 * 
-	 * public void actionPerformed(ActionEvent e) {
-	 * UI.appendToConversationHistory("blue", "\n" + ">>  " + Output + "\n");
-	 * userInputforTerm.stop();
-	 * 
-	 * } });
-	 * 
-	 * }
-	 * 
-	 * else if ((OutputType == "Answer" || OutputType == "Question") && i != -1)
-	 * UI.appendToConversationHistory("blue", "\n" + ">>  " + Output + "\n");
-	 * 
-	 * else if (i == 0) { UI.showInConversationHistory("");
-	 * UI.appendToConversationHistory("red", "\n" + "<<  " + Output + "\n"); }
-	 * 
-	 * else UI.appendToConversationHistory("red", "\n" + "<<  " + Output + "\n"); }
-	 * }
-	 */
 	public void printInConversationHistory(String OutputType, String Output, int i) {
 
 		conversationNumber++;

@@ -25,7 +25,7 @@ public class UserInterface extends JFrame {
 
 		getContentPane().setLayout(null);
 
-		JLabel lblDesignQuery = new JLabel("Design Query");
+		JLabel lblDesignQuery = new JLabel("Design RECOM");
 		lblDesignQuery.setForeground(new Color(128, 128, 128));
 		lblDesignQuery.setFont(new Font("Calibri", Font.BOLD, 22));
 		lblDesignQuery.setBounds(35, 747, 164, 34);

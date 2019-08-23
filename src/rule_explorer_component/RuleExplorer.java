@@ -41,6 +41,11 @@ public class RuleExplorer {
 		RuleSetManager = new RuleBaseManager(this.Cont);
 		
 	}
+	
+	public void resetRuleGraph ()
+	{
+		ExpandedRuleGraph = new ArrayListRuleGraph();
+	}
 
 	public List<ArrayListRuleGraph> getExploredRuleGraphs() {
 		return this.ExploredRuleGraphs;

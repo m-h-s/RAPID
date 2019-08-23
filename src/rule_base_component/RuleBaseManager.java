@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 
 public class RuleBaseManager {
 
-	// private ArrayList<Rule> RuleSet;
 	public ArrayListRuleGraph RuleSet;
 	private UserInteractionManager Cont;
 	private RuleLoader RuleLoader;

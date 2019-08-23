@@ -128,7 +128,7 @@ public class RuleExplorer {
 
 		// 3-Find rules in the rule set that have the initiating term in their
 		// right-hand side.
-		ArrayList<Rule> MatchedRules = RuleSetManager.matchRightHand(InitiatingTerm);
+		ArrayList<Rule> MatchedRules = RuleSetManager.matchRightHandSide(InitiatingTerm);
 
 		if (!MatchedRules.isEmpty()) {
 			/*
@@ -228,7 +228,7 @@ public class RuleExplorer {
 
 			// 3-Find rules in the rule set that have the initiating term in their
 			// right-hand side.
-			ArrayList<Rule> MatchedRules = RuleSetManager.matchRightHand(InitiatingTerm);
+			ArrayList<Rule> MatchedRules = RuleSetManager.matchRightHandSide(InitiatingTerm);
 			//System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 			//for (Rule r : MatchedRules)
 				//System.out.println(r.printRule());

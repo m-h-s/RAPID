@@ -332,4 +332,89 @@ public class ArrayListRuleGraph implements RuleGraph {
 		
 	}
 
+	public String RuleBaseToString() {
+		String RuleBaseInStringForm = "\n##########################Rule Set Begins #########################\n \n";
+		for (Rule r : this.RuleGraph)
+			RuleBaseInStringForm = RuleBaseInStringForm + r.getRuleNumber() + ": " + r.printRule() + "\n \n";
+	
+		RuleBaseInStringForm = RuleBaseInStringForm
+				+ "##########################Rule Set Ends ######################### \n ";
+	
+		return RuleBaseInStringForm;
+	
+	}
+	
+	public ArrayList<Rule> findRightHandSide(Term rhs) {
+
+		// Find and Return the rules in the ruleset whose righthandside equals to the
+		// given term.
+		/*
+		 * ########Is it possible to have more than one rule whose left-hand-side is the
+		 * same? ######## Example: a --Help --> b and c ---help---> d? or ######## (a,b)
+		 * --and--> c , (e,f)----and---> d ######## It is possible that no match is
+		 * found in the rule set. ######## What if the matchedRules is empty? This code
+		 * does not handle an empty matchedRules. ######## Current assumption: There is
+		 * only one rule which matches the right-hand side.
+		 */
+
+		// I changed the return type of this method so that a rule can be returned
+		// instead of only a rule's left hand side.
+
+		ArrayList<Rule> matchedRules = new ArrayList<Rule>();
+		for (Rule r : RuleGraph) {
+			// System.out.println(r.printRule());
+			// System.out.println(rhs.getPredicate()+ ""+ rhs.getArguments() +"\n");
+			// System.out.println(r.getRightHandSide().getPredicate()+ ""+
+			// r.getRightHandSide().getArguments() +"\n");
+			// System.out.println(r.matchRightHandSide(rhs));
+			if (r.hasEqualRightHandSide(rhs)) {
+				// System.out.println("**********************"+r.printRule());
+				matchedRules.add(r);
+				// System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+				// System.out.println (r.printRule());
+			}
+
+			/*
+			 * Add the code for handling an empty matched rule set.
+			 */
+
+		}
+
+		return matchedRules;
+	}
+
+	public ArrayList<Rule> findLeftHandSide(ArrayList LHS) {
+
+		/*
+		 * Find and Return the rules in the ruleset whose Left-Hand-Side contains term
+		 * LHS. Example: a---help ---b> contains a as lhs Example (a,b) ----or---> c
+		 * contains a as lhs. Example (a,b) ---and ---> d contains (a,b) in lhs
+		 * ############# Currently, I only consider exact matching.
+		 * #####################The implementation of match left hand side is not
+		 * correct. It implements containment not equality of two arrays.
+		 */
+
+		ArrayList<Rule> matchedRules = new ArrayList<Rule>();
+		for (Rule r : RuleGraph) {
+			// System.out.println(rhs.getPredicate()+ ""+ rhs.getArguments() +"\n");
+			// System.out.println(r.getRightHandSide().getPredicate()+ ""+
+			// r.getRightHandSide().getArguments() +"\n");
+			// System.out.println(r.matchRightHandSide(rhs));
+
+			/// #####################Currently contains is not correct.
+			if (r.containsLeftHandSide((LHS))) {
+				// System.out.println("**********************"+r.getRuleNumber());
+				matchedRules.add(r);
+				// System.out.println (r.printRule());
+			}
+
+			/*
+			 * Add the code for handling an empty matched rule set.
+			 */
+
+		}
+
+		return matchedRules;
+	}
+
 }

@@ -12,10 +12,10 @@ import data_structures.*;
 
 public class RuleLoader {
 
-	private ArrayList<Rule> RuleSet;
+	private ArrayListRuleGraph RuleSet;
 	public String RuleBaseFileName;
 
-	public RuleLoader(ArrayList<Rule> ruleSet) {
+	public RuleLoader(ArrayListRuleGraph ruleSet) {
 		RuleSet = ruleSet;
 		ruleSetInitializer();
 	}
@@ -67,7 +67,7 @@ public class RuleLoader {
 	}
 
 	public void addRule(Rule newRule) {
-		RuleSet.add(newRule);
+		RuleSet.addRule(newRule);
 	}
 
 

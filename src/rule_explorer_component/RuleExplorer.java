@@ -8,7 +8,7 @@ import data_structures.RuleCategory;
 import data_structures.Term;
 import data_structures.TermSatisfactionValues;
 import reasoner_component.RuleEvaluator;
-import rule_base_component.RuleSetManager;
+import rule_base_component.RuleBaseManager;
 import user_interaction_component.UserInteractionManager;
 
 public class RuleExplorer {
@@ -23,7 +23,7 @@ public class RuleExplorer {
 	 */
 
 	private ArrayListRuleGraph ExpandedRuleGraph;
-	private RuleSetManager RuleSetManager;
+	private RuleBaseManager RuleSetManager;
 	private List<ArrayListRuleGraph> ExploredRuleGraphs;
     
 	
@@ -38,7 +38,7 @@ public class RuleExplorer {
 		this.Cont = Cont;
 		ExpandedRuleGraph = new ArrayListRuleGraph();
 		ExploredRuleGraphs = new ArrayList<ArrayListRuleGraph>();
-		RuleSetManager = new RuleSetManager(this.Cont);
+		RuleSetManager = new RuleBaseManager(this.Cont);
 		
 	}
 

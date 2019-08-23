@@ -14,15 +14,10 @@ public class RuleSetManager {
 	
 	
 	
-	/* Currently, I assume that the collection of rules are kept in a list. 
-	 * However, this implementation is not efficient when the number of rules increases.
-	 * This should be replaced by the Rule-Graph Data Structure.
-	 */
-	private ArrayList<Rule> RuleSet = new ArrayList<Rule>();
 	
 	private UserInteractionManager Cont;
 	
-	private String RuleBaseFileName;	
+	private RuleLoader ruleLoader = new RuleLoader(new ArrayList<Rule>());
 
 	public RuleSetManager (UserInteractionManager Cont)
 	{
@@ -31,23 +26,11 @@ public class RuleSetManager {
 		this.Cont = Cont;
 		ruleSetInitializer();
 		Cont.receiveOutputFromModel("other", this.RuleSetToString());
-		RuleBaseFileName = "RuleBase";
+		ruleLoader.RuleBaseFileName = "RuleBase";
 		//printRuleSet ();
 	}
 	
-	public void addRule(String lhsType, String lhsTopic, String rhsType, String rhsTopic, RuleType rType,
-			RuleCategory rCat) {
-		// #### important A problematic point is that lhs and rhs and terms should be in
-		// the form of set not list or arraylist.
 
-		Term t1 = new Term(lhsType, lhsTopic);
-		Term t2 = new Term(rhsType, rhsTopic);
-
-		Rule newRule = new Rule(t1, t2, rType, rCat);
-
-		RuleSet.add(newRule);
-
-	}
 
 	public void addRule(ArrayList<Term> lhs, String rhsType, String rhsTopic, RuleType rType,
 			RuleCategory rCat) {
@@ -58,13 +41,13 @@ public class RuleSetManager {
 
 		Rule newRule = new Rule(lhs, t2, rType, rCat);
 
-		RuleSet.add(newRule);
+		ruleLoader.RuleSet.add(newRule);
 
 	}
 	
 	public void addRule (Rule newRule)
 	{
-		RuleSet.add(newRule);
+		ruleLoader.RuleSet.add(newRule);
 	}
 
 	/*
@@ -132,7 +115,7 @@ public class RuleSetManager {
 	
 	public void ruleSetInitializer() {
 		
-		/*  #####For initializer , a loader is maybe required that loads the rule set from a file or from data base. 
+		/*  #####For initializer , a loader is maybe required that loads the rule set from a file or from ruleLoader base. 
 		 *  ##### Initializer can get the rules from the rulebase. 
 		 *  #####Is it required to load all the rules? If not, which portion should be loaded.
 		 *  #####Is it required to load the rule set at all? In this case the interactions 
@@ -164,7 +147,7 @@ public class RuleSetManager {
 	public String RuleSetToString ()
 	{
 		String RuleSetInStringForm = "\n##########################Rule Set Begins #########################\n \n";
-		for (Rule r : RuleSet)
+		for (Rule r : ruleLoader.RuleSet)
 				RuleSetInStringForm = RuleSetInStringForm + r.getRuleNumber() + ": "+ r.printRule() + "\n \n";
 		
 		RuleSetInStringForm= RuleSetInStringForm + "##########################Rule Set Ends ######################### \n ";
@@ -189,7 +172,7 @@ public class RuleSetManager {
 		// I changed the return type of this method so that a rule can be returned instead of only a rule's left hand side.
 		
 		ArrayList<Rule> matchedRules = new ArrayList<Rule> ();
-		for (Rule r : RuleSet)
+		for (Rule r : ruleLoader.RuleSet)
 		{
 			// System.out.println(r.printRule());
 			//System.out.println(rhs.getPredicate()+ ""+ rhs.getArguments() +"\n");
@@ -228,7 +211,7 @@ public class RuleSetManager {
 		
 		
 		ArrayList<Rule> matchedRules = new ArrayList<Rule> ();
-		for (Rule r : RuleSet)
+		for (Rule r : ruleLoader.RuleSet)
 		{
 			//System.out.println(rhs.getPredicate()+ ""+ rhs.getArguments() +"\n");
 			//System.out.println(r.getRightHandSide().getPredicate()+ ""+ r.getRightHandSide().getArguments() +"\n");

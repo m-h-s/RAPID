@@ -23,39 +23,9 @@ public class RuleBaseManager {
 
 		RuleSet = new ArrayList<Rule>();
 		RuleLoader = new RuleLoader(RuleSet);
-		Cont.receiveOutputFromModel("other", this.RuleSetToString());
-
 		// printRuleSet ();
+		Cont.receiveOutputFromModel("other", this.RuleSetToString());
 	}
-
-	/*
-	 * public Term createTerm(String predicate, String argument) {
-	 * 
-	 * Term t = new Term (predicate, argument); return t;
-	 * 
-	 * }
-	 */
-
-	/*
-	 * public ArrayList <Term> addToLHS (ArrayList <Term> LHS, Term t) { LHS.add(t);
-	 * return LHS; }
-	 */
-
-	/*
-	 * public void printRuleSet() {
-	 * 
-	 * System.out.
-	 * println("\n ##########################Rule Set Begins ######################### \n"
-	 * );
-	 * 
-	 * for (Rule r : RuleSet) { System.out.println(r.printRule());
-	 * 
-	 * }
-	 * 
-	 * System.out.
-	 * println("\n ##########################Rule Set Ends ######################### \n "
-	 * ); }
-	 */
 
 	public String RuleSetToString() {
 		String RuleSetInStringForm = "\n##########################Rule Set Begins #########################\n \n";

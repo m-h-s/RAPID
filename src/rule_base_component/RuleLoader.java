@@ -24,7 +24,8 @@ public class RuleLoader {
 
 		/*
 		 * #####Is it required to load all the rules? If not, which portion should be
-		 * loaded. #####Is it required to load the rule set at all? In this case the
+		 * loaded. 
+		 * #####Is it required to load the rule set at all? In this case the
 		 * interactions between the rule base and the program increases and the time
 		 * increases. #####Should we insert the rules by adding columns about the next
 		 * rule and the previous rule?
@@ -69,37 +70,5 @@ public class RuleLoader {
 		RuleSet.add(newRule);
 	}
 
-/*
-	public void addRule(String lhsType, String lhsTopic, String rhsType, String rhsTopic, RuleType rType,
-			RuleCategory rCat) {
-		// #### important A problematic point is that lhs and rhs and terms should be in
-		// the form of set not list or arraylist.
 
-		Term t1 = new Term(lhsType, lhsTopic);
-		Term t2 = new Term(rhsType, rhsTopic);
-
-		Rule newRule = new Rule(t1, t2, rType, rCat);
-
-		RuleSet.add(newRule);
-
-	}
-
-	public void addRule(ArrayList<Term> lhs, String rhsType, String rhsTopic, RuleType rType, RuleCategory rCat) {
-		// ####Important A problematic point is that lhs and rhs and terms should be in
-		// the form of set not list or arraylist.
-
-		Term t2 = new Term(rhsType, rhsTopic);
-
-		Rule newRule = new Rule(lhs, t2, rType, rCat);
-
-		RuleSet.add(newRule);
-
-	}
-
-	public ArrayList<Term> createLHS(Term t) {
-		ArrayList<Term> LHS = new ArrayList<Term>();
-		LHS.add(t);
-		return LHS;
-	}
-	*/
 }

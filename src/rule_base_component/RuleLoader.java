@@ -1,3 +1,5 @@
+
+
 package rule_base_component;
 
 import java.io.BufferedReader;
@@ -9,12 +11,23 @@ import java.util.ArrayList;
 
 import data_structures.*;
 
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since 2018 - 11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ * 
+ */
+
 public class RuleLoader {
 
-	private ArrayListRuleGraph RuleSet;
+	private ListRuleSet RuleSet;
 	public String RuleBaseFileName;
 
-	public RuleLoader(ArrayListRuleGraph ruleSet) {
+	public RuleLoader(ListRuleSet ruleSet) {
 		RuleSet = ruleSet;
 		ruleSetInitializer();
 	}
@@ -22,10 +35,12 @@ public class RuleLoader {
 	public void ruleSetInitializer() {
 
 		/*
-		 * ##### We currently load all the rules. Is it required to load all the rules?
-		 * If not, which portion should be loaded. In this case the interactions between
-		 * the rule base and the program increases and the time increases. #####Should
-		 * we insert the rules by adding columns about the next rule and the previous
+		 * We currently load all the rules. 
+		 * This case the interactions between
+		 * the rule base and the program increases and the time increases.
+		 * Is it required to load all the rules?
+		 * If not, which portion should be loaded. 
+		 * We can insert the rules by adding columns about the next rule and the previous
 		 * rule?
 		 * 
 		 */
@@ -43,13 +58,10 @@ public class RuleLoader {
 
 			String RuleString;
 			while ((RuleString = bf.readLine()) != null) {
-				// System.out.println ("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-				// System.out.println("Rule String"+ RuleString);
+			
 				if (!RuleString.trim().isEmpty() && !RuleString.trim().startsWith("###")) {
 					Rule r = new Rule();
 					r.ParseRule(RuleString);
-					// System.out.println ("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-					// System.out.println(r.printRule());
 					addRule(r);
 				}
 			}

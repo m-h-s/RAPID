@@ -6,12 +6,22 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.Timer;
 
-import reasoner_component.QueriedTerm;
-import reasoner_component.Query;
+import reasoner_component.Constraint;
+import reasoner_component.ConstraintSet;
 import reasoner_component.Recommender;
 import rule_explorer_component.RuleExplorer;
 import data_structures.*;
-//import data_structures.TermSatisfactionValues;
+
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since 2018 - 11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ * 
+ */
 
 public class UserInteractionManager {
 
@@ -21,9 +31,9 @@ public class UserInteractionManager {
 
 	private UserMode UserMode;
 
-	private ExpectedQueryItem ExpectedItem;
+	private ExpectedConstraintItem ExpectedItem;
 
-	private Query ReqSet;
+	private ConstraintSet ReqSet;
 
 	private String UserInputForReqType;
 	private String UserInputForReqTopic;
@@ -33,8 +43,8 @@ public class UserInteractionManager {
 	private TermPriority userInputForPriority;
 	private TermSatisfactionValues userInputforExpectedSatsifaction;
 
-	List<ArrayListRuleGraph> ExploredRuleGraphs;
-	ArrayListRuleGraph ExpandedRuleGraph;
+	List<ListRuleSet> ExploredRuleGraphs;
+	ListRuleSet ExpandedRuleGraph;
 
 	private String TheMostRecentUSerInput;
 
@@ -44,16 +54,18 @@ public class UserInteractionManager {
 
 	private String commandMessage = "Please tell me how I can help:\n\n"
 			+ "(a) to figure out a design solution, (b) to analyze a design solution, "
-			+ "\n\n(c) to evaluate a design solution, (d) to recommend a design solution,"
-			+ "\n\n(e) to show my knowledge, or (f) to explain what I am doing.";
+			+ "\n\n(c) to evaluate a design solution, or (d) to recommend a design solution.";
 
 	private String designMessage = "I am in the design mode.\n\n";
+
 	private String requirementSpecificationMessage = "Please specify the design requirements:";
 
 	private String analysisMessage = "I am in the analysis mode.\n\n";
+
 	private String analysisSpecificationMessage = "Please specify the design solution that I should analyze:";
 
 	private String noAnswerMessage = " I cannot respond to this query.\n\n";
+
 	private String RequirementsSpecificationMessage = "Please identify the important non-fucntioanl requirements \n\n"
 			+ "and their priority one by one. \n\n";
 
@@ -61,15 +73,15 @@ public class UserInteractionManager {
 		UI = new UserInterface();
 		UI.InitializeUI();
 		UI.setController(this);
-		
-		
+
+
 		RuleExplorer = new RuleExplorer(this);
 		QueryManager = new Recommender(this);
 
-		
 
-		this.ExpectedItem = ExpectedQueryItem.Req;
-		this.ReqSet = new Query();
+
+		this.ExpectedItem = ExpectedConstraintItem.Req;
+		this.ReqSet = new ConstraintSet();
 		this.TheMostRecentUSerInput = "";
 
 		resetConversationNumber();
@@ -101,7 +113,7 @@ public class UserInteractionManager {
 
 			else {
 				RuleExplorer.resetRuleGraph();
-				processRequirements(UserInput);
+				processPreferences(UserInput);
 				printInConversationHistory("Question", commandMessage);
 			}
 		}
@@ -126,18 +138,16 @@ public class UserInteractionManager {
 			ExploredRuleGraphs = RuleExplorer.getExploredRuleGraphs();
 			ExpandedRuleGraph = RuleExplorer.getExpandedRuleGraph();
 			printInConversationHistory("Question", RequirementsSpecificationMessage);
-			getRequirementsSetFromUser();
+			getConstraintsSetFromUser();
 		} 
 		else if (this.UserMode == UserMode.EXPLOR)
 			exploreRuleBase(UserInput);
 
 		else if (this.UserMode == UserMode.RECOM)
-			processRequirements(UserInput);
+			processPreferences(UserInput);
 
 		else if (this.UserMode == UserMode.ANALYZ) {
 			printInConversationHistory("Other", UserInput);
-			// printInConversationHistory ("Answer", "\n----------------EXPLOR
-			// begins---------------\n");
 			RuleExplorer.analyzeSourceTermsByUser(UserInput);
 			printInConversationHistory("Question", analysisMessage + analysisSpecificationMessage);
 		}
@@ -150,10 +160,10 @@ public class UserInteractionManager {
 	}
 
 	public void exploreRuleBase(String UserInput) {
-			
-			TheMostRecentUSerInput = UserInput;
-			RuleExplorer.getUserInputFromController(UserInput);
-			
+
+		TheMostRecentUSerInput = UserInput;
+		RuleExplorer.getUserInputFromController(UserInput);
+
 	}
 
 	public void receiveOutputFromModel(String AnswerName, String Answer) {
@@ -173,18 +183,13 @@ public class UserInteractionManager {
 		}
 	}
 
-	public void receiveOutputFromModel(String AnswerName, ArrayList<String> Answer) {
+	public void receiveAnswerFromExplorer(String AnswerName, ArrayList<String> Answer) {
 		if (AnswerName == "RuleGraphExpansionHistory" && !Answer.isEmpty()) {
 			for (int i = 0; i < Answer.size(); i++)
 				if (i % 2 == 0)
-					// printInConversationHistory("Other", Answer.get(i), i);
 					printInConversationHistory("Other", Answer.get(i));
-				/*
-				 * else if (i == Answer.size() - 1) { printInConversationHistory("Answer",
-				 * Answer.get(i), -1); System.out.println("ZZZZZZZZZZZZZZZZ"+ Answer.get(i)); }
-				 */
+
 				else
-					// printInConversationHistory("Answer", Answer.get(i), i);
 					printInConversationHistory("Answer", Answer.get(i));
 		}
 
@@ -203,32 +208,28 @@ public class UserInteractionManager {
 		}
 	}
 
-	public void processRequirements(String UserInput) {
+	public void processPreferences(String UserInput) {
 
 		this.TheMostRecentUSerInput = UserInput;
 
 		if (!UserInput.replaceAll("\\s", "").toLowerCase().contains("exit")) {
 
-			if (this.ExpectedItem == ExpectedQueryItem.Req) {
+			if (this.ExpectedItem == ExpectedConstraintItem.Req) {
 				UserInputForReq = UserInput;
 				String[] SplitUserInput = UserInput.toLowerCase().split(" is ");
 				userInputforTerm = new Term();
 				String[] splitInputTerm;
 				splitInputTerm = SplitUserInput[0].split(" of the ");
 				userInputforTerm = new Term(splitInputTerm[0], splitInputTerm[1]);
-				// userInputforTerm.parseTerm();
-				System.out.println(userInputforTerm.printTerm());
+
 
 				String[] splitInputPriority = SplitUserInput[1].toLowerCase().split("\\.");
-				// String inputPriroity = SplitUserInput[1].toLowerCase();
 
-				System.out.println(splitInputPriority[0]);
 
 				if (Objects.equals(splitInputPriority[0], "very critical"))
 
 				{
 					userInputForPriority = TermPriority.HIGH;
-					System.out.println("here");
 				}
 
 				else if (Objects.equals(splitInputPriority[0], "critical"))
@@ -237,36 +238,31 @@ public class UserInteractionManager {
 				else if (Objects.equals(splitInputPriority[0], "important"))
 					userInputForPriority = TermPriority.LOW;
 
-				System.out.println(userInputForPriority.toString());
-
 				printInConversationHistory("Other",
 						UserInput + "\n\n" + userInputforTerm.printTerm() + ", " + userInputForPriority.toString());
 
-				// UI.appendToConversationHistory ("magenta", userInputforTerm.printTerm()
-				// +"\n");
-				// printInConversationHistory("Other", userInputforTerm.printTerm());
 
-				this.ReqSet.addQueriedTerm(userInputforTerm, userInputForPriority, TermSatisfactionValues.SAT);
+				this.ReqSet.addConstraint(userInputforTerm, userInputForPriority, TermSatisfactionValues.SAT);
 
-				this.ExpectedItem = ExpectedQueryItem.Req;
-				getRequirementsSetFromUser();
+				this.ExpectedItem = ExpectedConstraintItem.Req;
+				getConstraintsSetFromUser();
 			}
 
 		} else {
 
 			printInConversationHistory("Other", UserInput);
-			// printInConversationHistory("Other", "exit");
-			for (QueriedTerm q : this.ReqSet.getQuerySet())
+			
+			for (Constraint q : this.ReqSet.getConstraints())
 				printInConversationHistory("Answer", q.printQueriedTerm());
 
 			printInConversationHistory("Answer", "End Of Requirements Specification");
-			QueryManager.executeQuery(this.ReqSet, ExploredRuleGraphs);
+			QueryManager.matchConstraints(this.ReqSet, ExploredRuleGraphs);
 			QueryManager.findBestMatches(ExpandedRuleGraph);
 		}
 
 	}
 
-	public void getRequirementsSetFromUser() {
+	public void getConstraintsSetFromUser() {
 		/*
 		 * 1- Get Requirements (Term) 2- Get priority of Requirement 3- Get Expected
 		 * Satisfaction Value 4-Iterate until user enters exit
@@ -280,11 +276,11 @@ public class UserInteractionManager {
 			printInConversationHistory("Question", "Please Specify Expected Requirements");
 		}
 
-		if (this.ExpectedItem == ExpectedQueryItem.Req)
+		if (this.ExpectedItem == ExpectedConstraintItem.Req)
 
 		{
 			printInConversationHistory("Question", "Requirement : ?");
-		} else if (this.ExpectedItem == ExpectedQueryItem.Type)
+		} else if (this.ExpectedItem == ExpectedConstraintItem.Type)
 
 		{
 			UserInputForReqType = "";
@@ -294,16 +290,15 @@ public class UserInteractionManager {
 			printInConversationHistory("Question", "Requirement Type: ?");
 		}
 
-		else if (this.ExpectedItem == ExpectedQueryItem.Topic)
+		else if (this.ExpectedItem == ExpectedConstraintItem.Topic)
 
 			printInConversationHistory("Question", "Requirement Topic: ?");
 
-		else if (this.ExpectedItem == ExpectedQueryItem.PRIORITY)
+		else if (this.ExpectedItem == ExpectedConstraintItem.PRIORITY)
 			printInConversationHistory("Question", "priority: ?");
 
-		else if (this.ExpectedItem == ExpectedQueryItem.SatVal)
-			// printInConversationHistory("Question", "Expected Satisfaction level: ?");
-			processRequirements("SAT");
+		else if (this.ExpectedItem == ExpectedConstraintItem.SatVal)
+			processPreferences("SAT");
 
 	}
 
@@ -312,12 +307,13 @@ public class UserInteractionManager {
 		conversationNumber++;
 		int conversationNumberCopy = conversationNumber;
 
-		Color DarkBlueColor = new Color(0, 0, 204);
+		Color DarkBlueColor = new Color(0, 0, 100);
+		Color Black = new Color (1,1,1);
 		Color LightGrayColor = new Color(110, 110, 110);
 
 		if (OutputType == "Answer" || OutputType == "Question") {
-			// Timer userInputforTerm = new Timer(1100, null);
-			Timer t = new Timer(0, null);
+			Timer userInputforTerm = new Timer(1100, null);
+			Timer t = new Timer(1000, null);
 			t.start();
 
 			t.addActionListener(new ActionListener() {
@@ -330,10 +326,8 @@ public class UserInteractionManager {
 				}
 			});
 		} else
-			UI.appendToConversationHistory(LightGrayColor,
+			UI.appendToConversationHistory(Black,
 					"\n" + conversationNumber + ":  >>  Designer:\n\n" + Output + "\n");
-
-		// conversationNumber++;
 
 	}
 
@@ -344,18 +338,19 @@ public class UserInteractionManager {
 
 		Color LightGrayColor = new Color(110, 110, 110);
 
-		Color DarkBlueColor = new Color(0, 0, 204);
+		Color Black = new Color (1,1,1);
+
+		Color DarkBlueColor = new Color(0, 0, 100);
 
 		if ((OutputType == "Answer" || OutputType == "Question") && i == -1) {
 
-			// Timer userInputforTerm = new Timer(1100, null);
-			Timer t = new Timer(0, null);
+			Timer userInputforTerm = new Timer(1100, null);
+			Timer t = new Timer(1000, null);
 			t.start();
 
 			t.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(">>>>>>>>>>>>>>>" + Output);
 					UI.appendToConversationHistory(DarkBlueColor,
 							"\n" + conversationNumberCopy + ":  >>  RAPID: \n\n" + Output + "\n");
 					t.stop();
@@ -370,7 +365,7 @@ public class UserInteractionManager {
 					"\n" + conversationNumber + ":  >>  RAPID:\n\n" + Output + "\n");
 
 		else
-			UI.appendToConversationHistory(LightGrayColor,
+			UI.appendToConversationHistory(Black,
 					"\n" + conversationNumber + ":  >>  Designer:\n\n" + Output + "\n");
 
 	}

@@ -1,4 +1,5 @@
-package data_structures;
+package user_interaction_component;
+
 /**
  * @author Mahsa Sadi
  * 
@@ -10,10 +11,11 @@ package data_structures;
  * 
  */
 
-public enum RuleType {
 
+public enum ExpectedConstraintItem {
 	
-		HELP, HURT, MAKE, BREAK, SOMEPLUS, SOMEMINUS, UNKNOWN, AND, OR, EQUAL, UNDET
-
+	
+		Req, Type, Topic, PRIORITY, SatVal
+	
 
 }

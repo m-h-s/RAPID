@@ -1,9 +1,19 @@
 package data_structures;
 import java.util.*;
+import reasoner_component.ConstraintSet;
 
-import reasoner_component.Query;
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since 2018 - 11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ * 
+ */
 
-public interface RuleGraph <T> {
+public interface RuleSet <T> {
 
 	void addRule(Rule r);
 
@@ -23,7 +33,7 @@ public interface RuleGraph <T> {
 
 	T findInRulesLHS(String TermString);
 
-	Query matchQuery(Query q);
+	ConstraintSet matchConstraints(ConstraintSet q);
 	
 	T deepCopyRuleGraph ();
 	

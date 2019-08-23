@@ -4,14 +4,23 @@ import data_structures.Term;
 import data_structures.TermPriority;
 import data_structures.TermSatisfactionValues;
 
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since 2018 - 11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ * 
+ */
 
-
-public class QueriedTerm {
+public class Constraint {
 
 	private Term Attribute;
 	private TermPriority TermPriority;
 
-	public QueriedTerm(Term attribute, TermPriority attributePriority, TermSatisfactionValues attributeValue) {
+	public Constraint(Term attribute, TermPriority attributePriority, TermSatisfactionValues attributeValue) {
 		this.setAttribute(attribute);
 		this.setAttributePriority(attributePriority);
 		this.setAttributeValue(attributeValue);

@@ -1,5 +1,6 @@
 package user_interaction_component;
 
+
 import java.awt.Color;
 import java.util.*;
 import javax.swing.*;
@@ -11,6 +12,16 @@ import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
 import java.awt.event.ActionEvent;
 import javax.swing.text.*;
+
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since  2018 -11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ */
 
 public class UserInterface extends JFrame {
 
@@ -25,14 +36,14 @@ public class UserInterface extends JFrame {
 
 		getContentPane().setLayout(null);
 
-		JLabel lblDesignQuery = new JLabel("Design RECOM");
-		lblDesignQuery.setForeground(new Color(128, 128, 128));
+		JLabel lblDesignQuery = new JLabel("Design Query");
+		lblDesignQuery.setForeground(new Color(110, 110, 110));
 		lblDesignQuery.setFont(new Font("Calibri", Font.BOLD, 22));
-		lblDesignQuery.setBounds(35, 747, 164, 34);
+		lblDesignQuery.setBounds(35, 847, 164, 34);
 		getContentPane().add(lblDesignQuery);
 
 		DesignerQuery = new JTextField();
-		DesignerQuery.setBounds(35, 785, 790, 155);
+		DesignerQuery.setBounds(35, 885, 790, 155);
 		DesignerQuery.setFont(new Font("Consolas", Font.PLAIN, 18));
 		Color color = new Color(0, 0, 0);
 		DesignerQuery.setForeground(color);
@@ -57,7 +68,7 @@ public class UserInterface extends JFrame {
 		JScrollPane CVScrollPane = new JScrollPane(ConversationHistory, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		CVScrollPane.setVisible(true);
-		CVScrollPane.setBounds(35, 58, 890, 675);
+		CVScrollPane.setBounds(35, 58, 890, 775);
 		getContentPane().add(CVScrollPane);
 
 		InfoPane = new JEditorPane();
@@ -69,7 +80,7 @@ public class UserInterface extends JFrame {
 
 		JScrollPane InfoPaneScrollPane = new JScrollPane(InfoPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		InfoPaneScrollPane.setBounds(941, 58, 710, 882);
+		InfoPaneScrollPane.setBounds(941, 58, 860, 982);
 		InfoPaneScrollPane.setVisible(true);
 		getContentPane().add(InfoPaneScrollPane);
 
@@ -87,7 +98,7 @@ public class UserInterface extends JFrame {
 			}
 		});
 
-		QuerySubmitted.setBounds(835, 785, 91, 154);
+		QuerySubmitted.setBounds(835, 885, 91, 154);
 		getContentPane().add(QuerySubmitted);
 
 		JLabel lblInfoPane = new JLabel("Explanations");

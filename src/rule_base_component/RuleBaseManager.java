@@ -8,9 +8,20 @@ import user_interaction_component.UserInteractionManager;
 import java.io.*;
 import java.nio.file.Paths;
 
+/**
+ * @author Mahsa Sadi
+ * 
+ * @since 2018 - 11 - 01
+ * 
+ * License: Creative Commons
+ * 
+ * Copyright by Mahsa Sadi
+ * 
+ */
+
 public class RuleBaseManager {
 
-	public ArrayListRuleGraph RuleSet;
+	public ListRuleSet RuleSet;
 	private UserInteractionManager Cont;
 	private RuleLoader RuleLoader;
 
@@ -18,21 +29,22 @@ public class RuleBaseManager {
 
 		this.Cont = Cont;
 
-		RuleSet = new ArrayListRuleGraph();
+		RuleSet = new ListRuleSet();
 		RuleLoader = new RuleLoader(RuleSet);
+
 		// print rule base as loaded from the file
 		Cont.receiveOutputFromModel("other", RuleSet.RuleBaseToString());
 	}
 
-	public ArrayList<Rule> matchLeftHandSide(ArrayList LHS) {
+	public ArrayList<Rule> matchPrecedent(ArrayList LHS) {
 
-		return RuleSet.findLeftHandSide(LHS);
+		return RuleSet.findPrecedent(LHS);
 
 	}
 
-	public ArrayList<Rule> matchRightHandSide(Term RHS) {
+	public ArrayList<Rule> matchConsequent(Term RHS) {
 
-		return RuleSet.findRightHandSide(RHS);
+		return RuleSet.findConsequent(RHS);
 
 	}
 

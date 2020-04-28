@@ -5,7 +5,6 @@ import data_structures.RuleSet;
 import data_structures.TermPriority;
 import data_structures.TermSatisfactionValues;
 import user_interaction_component.UserInteractionManager;
-
 import java.math.*;
 
 /**

@@ -1,8 +1,6 @@
 import java.util.*;
 import user_interaction_component.UserInteractionManager;
 
-
-
 /**
  * @author Mahsa Sadi
  * 
@@ -13,8 +11,6 @@ import user_interaction_component.UserInteractionManager;
  * Copyright by Mahsa Sadi
  * 
  */
-
-
 
 public class MainClass {
 

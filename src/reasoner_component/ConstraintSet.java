@@ -1,6 +1,5 @@
 package reasoner_component;
 import java.util.*;
-
 import data_structures.Term;
 import data_structures.TermPriority;
 import data_structures.TermSatisfactionValues;

@@ -1,11 +1,9 @@
 package user_interaction_component;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.Timer;
-
 import reasoner_component.Constraint;
 import reasoner_component.ConstraintSet;
 import reasoner_component.Recommender;

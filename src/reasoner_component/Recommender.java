@@ -1,6 +1,5 @@
 package reasoner_component;
 import java.util.*;
-
 import data_structures.ListRuleSet;
 import data_structures.RuleSet;
 import data_structures.TermPriority;

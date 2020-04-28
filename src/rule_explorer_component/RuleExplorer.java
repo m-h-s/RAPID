@@ -1,7 +1,5 @@
 package rule_explorer_component;
-
 import java.util.*;
-
 import data_structures.ListRuleSet;
 import data_structures.Rule;
 import data_structures.RuleCategory;

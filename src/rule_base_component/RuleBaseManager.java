@@ -1,10 +1,7 @@
 package rule_base_component;
-
 import java.util.*;
-
 import data_structures.*;
 import user_interaction_component.UserInteractionManager;
-
 import java.io.*;
 import java.nio.file.Paths;
 

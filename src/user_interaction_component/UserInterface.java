@@ -1,11 +1,8 @@
 package user_interaction_component;
-
-
 import java.awt.Color;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;

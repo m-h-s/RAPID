@@ -1,5 +1,4 @@
 package reasoner_component;
-
 import data_structures.Term;
 import data_structures.TermPriority;
 import data_structures.TermSatisfactionValues;

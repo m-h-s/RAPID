@@ -1,6 +1,5 @@
 package data_structures;
 import java.util.*;
-
 import reasoner_component.Constraint;
 import reasoner_component.ConstraintSet;
 

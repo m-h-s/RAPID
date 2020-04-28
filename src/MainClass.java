@@ -1,6 +1,6 @@
 import java.util.*;
-
 import user_interaction_component.UserInteractionManager;
+
 
 
 /**
@@ -18,10 +18,7 @@ import user_interaction_component.UserInteractionManager;
 
 public class MainClass {
 
-	
 
-
-	
 	public static void main(String[] args) {
 
 		/*

@@ -1,6 +1,5 @@
 package rule_explorer_component;
 
-
 import java.util.*;
 
 import data_structures.ListRuleSet;
@@ -11,7 +10,6 @@ import data_structures.TermSatisfactionValues;
 import reasoner_component.Evaluator;
 import rule_base_component.RuleBaseManager;
 import user_interaction_component.UserInteractionManager;
-
 
 /**
  * 
@@ -29,6 +27,7 @@ import user_interaction_component.UserInteractionManager;
  * 
  * 
  */
+
 
 public class RuleExplorer {
 

@@ -1,5 +1,8 @@
 import java.util.*;
 
+import user_interaction_component.UserInteractionManager;
+
+
 /**
  * @author Mahsa Sadi
  * 
@@ -10,8 +13,6 @@ import java.util.*;
  * Copyright by Mahsa Sadi
  * 
  */
-
-import user_interaction_component.UserInteractionManager;
 
 
 
@@ -27,7 +28,7 @@ public class MainClass {
 
 		/*
 		 * The initiating term or terms should be taken from the user. 
-		 * However, the user should know what terms are available.
+		 * The user should know what terms are available.
 		 * Currently, there is no option to let the user know what options are available.
 		 * 
 		 */

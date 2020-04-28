@@ -1,5 +1,10 @@
 package data_structures;
 
+
+
+import java.io.Serializable;
+import java.util.*;
+
 /**
  * @author Mahsa Sadi
  * 
@@ -10,11 +15,6 @@ package data_structures;
  * Copyright by Mahsa Sadi
  * 
  */
-
-import java.io.Serializable;
-import java.util.*;
-
-
 
 public class Term {
 

@@ -18,9 +18,7 @@ import user_interaction_component.UserInteractionManager;
 
 public class MainClass {
 
-	/**
-	 * @param args
-	 */
+	
 
 
 	

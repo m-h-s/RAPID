@@ -37,7 +37,7 @@ The use, modification, and distribution of the source code is allowed under two 
 2. Explicit permission is obtained from the original developer.
 
 ### References
-1. Sadi, M. H. (2020). "Assisting with API design through Reusing Design Knowledge". <br>
+1. Sadi, M. H. (2020). "Assisting with API Design through Reusing Design Knowledge". <br>
 Doctoral Dissertation. Department of Computer Science. University of Toronto.
 <br> <br>
 2. Sadi, M.H. & Yu, E. (2020). "RAPID: Assisting with API Design through Reusing Design Knowledge". <br>

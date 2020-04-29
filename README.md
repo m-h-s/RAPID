@@ -11,7 +11,7 @@ RAPID provides four types of guidelines to the users: <Enter>
 * Recommending design alternatives based on the requirements of a given case.
 
 ### Design and Architecture
-RAPID is designed as a rule-based knowledge-based and has four main components:<br>
+RAPID is designed as a rule-based knowledge-based System and has four main components:<br>
 * *Rule Base Component (RB)*: RB is responsible for storing and managing the rules encoding design knowledge. 
    <br><br>
 * *Rule Explorer (RE)*: RE is responsible for retrieving the rules that are related to a session of interaction with a user, <br> 
@@ -21,7 +21,7 @@ RAPID is designed as a rule-based knowledge-based and has four main components:<
 <br><br>
 * *Reasoner*: Reasoner is responsible for evaluating the rules related to an interaction session and selecting and recommending appropriate design solutions. 
 
-###Implementation
+### Implementation
 RAPID is implemented in Java.
 
 ### Copyright

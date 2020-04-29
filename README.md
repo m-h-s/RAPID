@@ -1,6 +1,6 @@
 # Rational API Designer (RAPID)
 
-### Objectives
+### Design Objectives
 RAPID is a conversational assistant that aids software developers <br> 
 in addressing non-functional requirements in the design of web APIs.
 

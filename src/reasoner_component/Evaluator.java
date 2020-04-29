@@ -146,15 +146,15 @@ public class Evaluator {
 		 * different from my TP summary (I do not have conf and unknown).
 		 */
 		
-		Term MinTerm = r.getPrecedent().get(0);
+		Term minTerm = r.getPrecedent().get(0);
 
 		for (Term t : r.getPrecedent())
 		{   
-			if (OrderofSatValues.get(t.getFinalSatValue()) < OrderofSatValues.get(MinTerm.getFinalSatValue()))
-				MinTerm = t;
+			if (OrderofSatValues.get(t.getFinalSatValue()) < OrderofSatValues.get(minTerm.getFinalSatValue()))
+				minTerm = t;
 		}	
 
-		assignReceivedValue(r.getConsequent(), MinTerm.getFinalSatValue());
+		assignReceivedValue(r.getConsequent(), minTerm.getFinalSatValue());
 	}
 
 	public void OrEvaluation(Rule r) {

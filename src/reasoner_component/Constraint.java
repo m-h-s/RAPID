@@ -16,8 +16,8 @@ import data_structures.TermSatisfactionValues;
 
 public class Constraint {
 
-	private Term Attribute;
-	private TermPriority TermPriority;
+	private Term attribute;
+	private TermPriority termPriority;
 
 	public Constraint(Term attribute, TermPriority attributePriority, TermSatisfactionValues attributeValue) {
 		this.setAttribute(attribute);
@@ -30,49 +30,49 @@ public class Constraint {
 	 * @return the requirement
 	 */
 	public Term getAttribute() {
-		return Attribute;
+		return attribute;
 	}
 
 	/**
 	 * @param requirement the requirement to set
 	 */
 	public void setAttribute(Term attribute) {
-		this.Attribute = attribute;
+		this.attribute = attribute;
 	}
 
 	/**
 	 * @return the expectedSatLevel
 	 */
 	public TermSatisfactionValues getAttributeValue() {
-		return this.Attribute.getFinalSatValue();
+		return this.attribute.getFinalSatValue();
 	}
 
 	/**
 	 * @param expectedSatLevel the expectedSatLevel to set
 	 */
 	public void setAttributeValue(TermSatisfactionValues attributeValue) {
-		this.Attribute.setFinalSatValue(attributeValue);
+		this.attribute.setFinalSatValue(attributeValue);
 	}
 
 	/**
 	 * @return the priority
 	 */
 	public TermPriority getAttributePriority() {
-		return TermPriority;
+		return termPriority;
 	}
 
 	/**
 	 * @param priority the priority to set
 	 */
 	public void setAttributePriority(TermPriority priority) {
-		this.TermPriority = priority;
+		this.termPriority = priority;
 	}
 
 	public String printQueriedTerm() {
 		String QueryString = "< ";
-		QueryString = QueryString + this.Attribute.printTerm() + ":=";
+		QueryString = QueryString + this.attribute.printTerm() + ":=";
 		QueryString = QueryString + this.getAttributeValue().toString().toLowerCase() + ", ";
-		QueryString = QueryString + "priority:= " + this.TermPriority.name().toLowerCase() + " >";
+		QueryString = QueryString + "priority:= " + this.termPriority.name().toLowerCase() + " >";
 		return QueryString;
 
 	}

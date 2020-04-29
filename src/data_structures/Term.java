@@ -43,7 +43,7 @@ public class Term {
 	 * A term may receive several sat values during an evaluation procedure.
 	 * 
 	 */
-	private ArrayList<TermSatisfactionValues> ReceivedSatValues = new ArrayList<TermSatisfactionValues>();
+	private ArrayList<TermSatisfactionValues> receivedSatValues = new ArrayList<TermSatisfactionValues>();
 
 	////////////////////////////////////////////////////
 	///////////////////////////////////////////////////
@@ -97,12 +97,12 @@ public class Term {
 	}
 
 	public ArrayList<TermSatisfactionValues> getReceivedSatValues() {
-		return ReceivedSatValues;
+		return receivedSatValues;
 	}
 
 	
 	public void setReceivedSatValue(TermSatisfactionValues ReceivedValue) {
-		this.ReceivedSatValues.add(ReceivedValue);
+		this.receivedSatValues.add(ReceivedValue);
 	}
 
 	public String printTerm() {
@@ -130,10 +130,9 @@ public class Term {
 			if (this.arguments.get(i) != "")
 				term = term + " of " + this.arguments.get(i) + ",";
 
-		if (this.arguments.get(i) != "") {
+		if (this.arguments.get(i) != "") 
 			term = term + " of " + this.arguments.get(i) + "";
-			System.out.println("argument is not empty");
-		}
+		
 
 		return term;
 
@@ -156,10 +155,10 @@ public class Term {
 
 		int i = 0;
 
-		for (i = 0; i < this.ReceivedSatValues.size() - 1; i++)
-			termReceivedStatus = termReceivedStatus + this.ReceivedSatValues.get(i) + ",";
+		for (i = 0; i < this.receivedSatValues.size() - 1; i++)
+			termReceivedStatus = termReceivedStatus + this.receivedSatValues.get(i) + ",";
 
-		termReceivedStatus = termReceivedStatus + this.ReceivedSatValues.get(i);
+		termReceivedStatus = termReceivedStatus + this.receivedSatValues.get(i);
 
 		return termReceivedStatus;
 	}

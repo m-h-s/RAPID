@@ -52,11 +52,11 @@ public class Recommender {
 
 	List<Double> queryResultsScore;
 
-	private UserInteractionManager Cont;
+	private UserInteractionManager controller;
 
 	public Recommender (UserInteractionManager Cont)
 	{
-		this.Cont = Cont;
+		this.controller = Cont;
 	}
 
 	public  void matchConstraints(ConstraintSet ReqSet, List<ListRuleSet> ExploredRuleGraphs) {
@@ -128,7 +128,7 @@ public class Recommender {
 			QueryScore = QueryScore + "Score: " + queryResultsScore.get(i) +"\n";
 
 
-		this.Cont.receiveOutputFromModel("other", QueryScore);
+		this.controller.receiveOutputFromModel("other", QueryScore);
 	}
 
 
@@ -184,7 +184,7 @@ public class Recommender {
 				BestMatches = BestMatches + "Note: The above design alternative has no correlation with the specified requirements. \n\n";
 
 		}
-		Cont.receiveOutputFromModel("Answer",  BestMatches +"\n");
+		controller.receiveOutputFromModel("Answer",  BestMatches +"\n");
 
 	}
 

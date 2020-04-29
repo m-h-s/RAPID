@@ -20,11 +20,11 @@ import data_structures.*;
 
 public class RuleLoader {
 
-	private ListRuleSet RuleSet;
-	public String RuleBaseFileName;
+	private ListRuleSet rules;
+	public String ruleBaseFileName;
 
 	public RuleLoader(ListRuleSet ruleSet) {
-		RuleSet = ruleSet;
+		rules = ruleSet;
 		ruleSetInitializer();
 	}
 
@@ -72,7 +72,7 @@ public class RuleLoader {
 	}
 
 	public void addRule(Rule newRule) {
-		RuleSet.addRule(newRule);
+		rules.addRule(newRule);
 	}
 
 }

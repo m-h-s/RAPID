@@ -18,30 +18,30 @@ import java.nio.file.Paths;
 
 public class RuleBaseManager {
 
-	public ListRuleSet RuleSet;
-	private UserInteractionManager Cont;
-	private RuleLoader RuleLoader;
+	public ListRuleSet ruleSet;
+	private UserInteractionManager controller;
+	private RuleLoader ruleLoader;
 
 	public RuleBaseManager(UserInteractionManager Cont) {
 
-		this.Cont = Cont;
+		this.controller = Cont;
 
-		RuleSet = new ListRuleSet();
-		RuleLoader = new RuleLoader(RuleSet);
+		ruleSet = new ListRuleSet();
+		ruleLoader = new RuleLoader(ruleSet);
 
 		// print rule base as loaded from the file
-		Cont.receiveOutputFromModel("other", RuleSet.RuleBaseToString());
+		Cont.receiveOutputFromModel("other", ruleSet.RuleBaseToString());
 	}
 
 	public ArrayList<Rule> matchPrecedent(ArrayList LHS) {
 
-		return RuleSet.findPrecedent(LHS);
+		return ruleSet.findPrecedent(LHS);
 
 	}
 
 	public ArrayList<Rule> matchConsequent(Term RHS) {
 
-		return RuleSet.findConsequent(RHS);
+		return ruleSet.findConsequent(RHS);
 
 	}
 

@@ -24,14 +24,14 @@ import data_structures.*;
 public class UserInteractionManager {
 
 	private UserInterface UI;
-	private RuleExplorer RuleExplorer;
-	private Recommender QueryManager;
+	private RuleExplorer ruleExplorer;
+	private Recommender recommender;
 
-	private UserMode UserMode;
+	private UserMode userMode;
 
-	private ExpectedConstraintItem ExpectedItem;
+	private ExpectedConstraintItem expectedItem;
 
-	private ConstraintSet ReqSet;
+	private ConstraintSet reqSet;
 
 	private String UserInputForReqType;
 	private String UserInputForReqTopic;
@@ -41,8 +41,8 @@ public class UserInteractionManager {
 	private TermPriority userInputForPriority;
 	private TermSatisfactionValues userInputforExpectedSatsifaction;
 
-	List<ListRuleSet> ExploredRuleGraphs;
-	ListRuleSet ExpandedRuleGraph;
+	List<ListRuleSet> exploredRuleGraphs;
+	ListRuleSet workingRuleSet;
 
 	private String TheMostRecentUSerInput;
 
@@ -73,13 +73,13 @@ public class UserInteractionManager {
 		UI.setController(this);
 
 
-		RuleExplorer = new RuleExplorer(this);
-		QueryManager = new Recommender(this);
+		ruleExplorer = new RuleExplorer(this);
+		recommender = new Recommender(this);
 
 
 
-		this.ExpectedItem = ExpectedConstraintItem.Req;
-		this.ReqSet = new ConstraintSet();
+		this.expectedItem = ExpectedConstraintItem.Req;
+		this.reqSet = new ConstraintSet();
 		this.TheMostRecentUSerInput = "";
 
 		resetConversationNumber();
@@ -104,20 +104,20 @@ public class UserInteractionManager {
 		UserInput = UserInput.toLowerCase().trim();
 
 		if (Objects.equals(UserInput, "exit")) {
-			if (this.UserMode != UserMode.RECOM) {
+			if (this.userMode != userMode.RECOM) {
 				printInConversationHistory("Other", UserInput);
 				printInConversationHistory("Question", commandMessage);
 			}
 
 			else {
-				RuleExplorer.resetRuleGraph();
+				ruleExplorer.resetRuleGraph();
 				processPreferences(UserInput);
 				printInConversationHistory("Question", commandMessage);
 			}
 		}
 
 		else if (Objects.equals(UserInput, "figure out")) {
-			this.UserMode = UserMode.EXPLOR;
+			this.userMode = userMode.EXPLOR;
 			printInConversationHistory("Other", UserInput);
 			printInConversationHistory("Question", designMessage + requirementSpecificationMessage);
 		}
@@ -125,28 +125,28 @@ public class UserInteractionManager {
 
 		else if (Objects.equals(UserInput, "analyze")) {
 			printInConversationHistory("Other", UserInput);
-			this.UserMode = UserMode.ANALYZ;
+			this.userMode = userMode.ANALYZ;
 			printInConversationHistory("Question", analysisSpecificationMessage);
 		}
 
 		else if (Objects.equals(UserInput, "recommend")) {
 			printInConversationHistory("Other", UserInput);
-			this.UserMode = UserMode.RECOM;
-			RuleExplorer.exploreExpandedRuleGraphOneByOne();
-			ExploredRuleGraphs = RuleExplorer.getExploredRuleGraphs();
-			ExpandedRuleGraph = RuleExplorer.getExpandedRuleGraph();
+			this.userMode = userMode.RECOM;
+			ruleExplorer.exploreExpandedRuleGraphOneByOne();
+			exploredRuleGraphs = ruleExplorer.getExploredRuleGraphs();
+			workingRuleSet = ruleExplorer.getExpandedRuleGraph();
 			printInConversationHistory("Question", RequirementsSpecificationMessage);
 			getConstraintsSetFromUser();
 		} 
-		else if (this.UserMode == UserMode.EXPLOR)
+		else if (this.userMode == userMode.EXPLOR)
 			exploreRuleBase(UserInput);
 
-		else if (this.UserMode == UserMode.RECOM)
+		else if (this.userMode == userMode.RECOM)
 			processPreferences(UserInput);
 
-		else if (this.UserMode == UserMode.ANALYZ) {
+		else if (this.userMode == userMode.ANALYZ) {
 			printInConversationHistory("Other", UserInput);
-			RuleExplorer.analyzeSourceTermsByUser(UserInput);
+			ruleExplorer.analyzeSourceTermsByUser(UserInput);
 			printInConversationHistory("Question", analysisMessage + analysisSpecificationMessage);
 		}
 
@@ -160,7 +160,7 @@ public class UserInteractionManager {
 	public void exploreRuleBase(String UserInput) {
 
 		TheMostRecentUSerInput = UserInput;
-		RuleExplorer.getUserInputFromController(UserInput);
+		ruleExplorer.getUserInputFromController(UserInput);
 
 	}
 
@@ -212,7 +212,7 @@ public class UserInteractionManager {
 
 		if (!UserInput.replaceAll("\\s", "").toLowerCase().contains("exit")) {
 
-			if (this.ExpectedItem == ExpectedConstraintItem.Req) {
+			if (this.expectedItem == ExpectedConstraintItem.Req) {
 				UserInputForReq = UserInput;
 				String[] SplitUserInput = UserInput.toLowerCase().split(" is ");
 				userInputforTerm = new Term();
@@ -240,9 +240,9 @@ public class UserInteractionManager {
 						UserInput + "\n\n" + userInputforTerm.printTerm() + ", " + userInputForPriority.toString());
 
 
-				this.ReqSet.addConstraint(userInputforTerm, userInputForPriority, TermSatisfactionValues.SAT);
+				this.reqSet.addConstraint(userInputforTerm, userInputForPriority, TermSatisfactionValues.SAT);
 
-				this.ExpectedItem = ExpectedConstraintItem.Req;
+				this.expectedItem = ExpectedConstraintItem.Req;
 				getConstraintsSetFromUser();
 			}
 
@@ -250,12 +250,12 @@ public class UserInteractionManager {
 
 			printInConversationHistory("Other", UserInput);
 			
-			for (Constraint q : this.ReqSet.getConstraints())
+			for (Constraint q : this.reqSet.getConstraints())
 				printInConversationHistory("Answer", q.printQueriedTerm());
 
 			printInConversationHistory("Answer", "End Of Requirements Specification");
-			QueryManager.matchConstraints(this.ReqSet, ExploredRuleGraphs);
-			QueryManager.findBestMatches(ExpandedRuleGraph);
+			recommender.matchConstraints(this.reqSet, exploredRuleGraphs);
+			recommender.findBestMatches(workingRuleSet);
 		}
 
 	}
@@ -269,16 +269,16 @@ public class UserInteractionManager {
 		 * existing in the rule set.
 		 */
 
-		if (this.UserMode == UserMode.EXPLOR) {
-			this.UserMode = UserMode.RECOM;
+		if (this.userMode == userMode.EXPLOR) {
+			this.userMode = userMode.RECOM;
 			printInConversationHistory("Question", "Please Specify Expected Requirements");
 		}
 
-		if (this.ExpectedItem == ExpectedConstraintItem.Req)
+		if (this.expectedItem == ExpectedConstraintItem.Req)
 
 		{
 			printInConversationHistory("Question", "Requirement : ?");
-		} else if (this.ExpectedItem == ExpectedConstraintItem.Type)
+		} else if (this.expectedItem == ExpectedConstraintItem.Type)
 
 		{
 			UserInputForReqType = "";
@@ -288,14 +288,14 @@ public class UserInteractionManager {
 			printInConversationHistory("Question", "Requirement Type: ?");
 		}
 
-		else if (this.ExpectedItem == ExpectedConstraintItem.Topic)
+		else if (this.expectedItem == ExpectedConstraintItem.Topic)
 
 			printInConversationHistory("Question", "Requirement Topic: ?");
 
-		else if (this.ExpectedItem == ExpectedConstraintItem.PRIORITY)
+		else if (this.expectedItem == ExpectedConstraintItem.PRIORITY)
 			printInConversationHistory("Question", "priority: ?");
 
-		else if (this.ExpectedItem == ExpectedConstraintItem.SatVal)
+		else if (this.expectedItem == ExpectedConstraintItem.SatVal)
 			processPreferences("SAT");
 
 	}

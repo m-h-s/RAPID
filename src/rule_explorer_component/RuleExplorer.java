@@ -45,7 +45,7 @@ public class RuleExplorer {
 	private List<ListRuleSet> copiesOfWorkingRuleSet;
 
 
-	private UserInteractionManager Cont;
+	private UserInteractionManager controller;
 
 
 	String inputTerm = "";
@@ -53,10 +53,10 @@ public class RuleExplorer {
 
 	public RuleExplorer (UserInteractionManager Cont)
 	{
-		this.Cont = Cont;
+		this.controller = Cont;
 		workingRuleSet = new ListRuleSet();
 		copiesOfWorkingRuleSet = new ArrayList<ListRuleSet>();
-		ruleSetManager = new RuleBaseManager(this.Cont);
+		ruleSetManager = new RuleBaseManager(this.controller);
 
 	}
 
@@ -83,23 +83,23 @@ public class RuleExplorer {
 
 	public void sendExpansionHistorytoController (ArrayList <String> ExpansionHistory)
 	{
-		Cont.receiveAnswerFromExplorer("RuleGraphExpansionHistory", ExpansionHistory);
+		controller.receiveAnswerFromExplorer("RuleGraphExpansionHistory", ExpansionHistory);
 	}
 
 
 	public void sendEmptyResponseToController ()
 	{
-		Cont.receiveOutputFromModel("EmptyAnswer", "No response can be provided!");
+		controller.receiveOutputFromModel("EmptyAnswer", "No response can be provided!");
 	}
 
 	public void sendResponseToController (ArrayList<String> Answer)
 	{
-		Cont.receiveAnswerFromExplorer("Answer", Answer);
+		controller.receiveAnswerFromExplorer("Answer", Answer);
 	}
 
 	public void sendResponseToController (String Answer)
 	{
-		Cont.receiveOutputFromModel("Answer", Answer);
+		controller.receiveOutputFromModel("Answer", Answer);
 	}
 
 
@@ -213,7 +213,7 @@ public class RuleExplorer {
 
 
 
-		Cont.receiveOutputFromModel(
+		controller.receiveOutputFromModel(
 				"Other", 
 				"\n--------------------------correlationsadded-----------------------------\n" +
 						workingRuleSet.toStringRuleGraph() +
@@ -338,7 +338,7 @@ public class RuleExplorer {
 
 			copiesOfWorkingRuleSet.add(RuleGraphCopy);
 			
-			Cont.receiveOutputFromModel("other", EvaluationSteps);
+			controller.receiveOutputFromModel("other", EvaluationSteps);
 
 		}
 

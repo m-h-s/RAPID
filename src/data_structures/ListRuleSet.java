@@ -16,26 +16,26 @@ import reasoner_component.ConstraintSet;
 
 public class ListRuleSet implements RuleSet {
 
-	private List<Rule> RuleGraph;
+	private List<Rule> ruleGraph;
 	List<Rule> SourceRules = new ArrayList<Rule> ();
 
 
 
 
 	public ListRuleSet() {
-		RuleGraph = new ArrayList<Rule>();
+		ruleGraph = new ArrayList<Rule>();
 	}
 
 
 	@Override
 	public void addRule(Rule r) {
-		RuleGraph.add(r);
+		ruleGraph.add(r);
 	}
 
 
 	@Override
 	public void deleteRule(Rule r) {
-		RuleGraph.remove(r);
+		ruleGraph.remove(r);
 	}
 
 
@@ -46,7 +46,7 @@ public class ListRuleSet implements RuleSet {
 		 * method are required.
 		 */
 
-		return RuleGraph.indexOf(r);
+		return ruleGraph.indexOf(r);
 	}
 
 
@@ -54,7 +54,7 @@ public class ListRuleSet implements RuleSet {
 	public String toStringRuleGraph() {
 
 		String  RuleGraphInString ="";
-		for (Rule r : RuleGraph)
+		for (Rule r : ruleGraph)
 			RuleGraphInString = RuleGraphInString + "\n"+ r.printRule();
 
 		return RuleGraphInString;
@@ -63,7 +63,7 @@ public class ListRuleSet implements RuleSet {
 	public String PrintRuleGraphInEnglish() {
 
 		String RuleGraphInString = "";
-		for (Rule r : RuleGraph)
+		for (Rule r : ruleGraph)
 			RuleGraphInString = RuleGraphInString + r.printRuleInEnglish();
 
 		return RuleGraphInString;
@@ -76,7 +76,7 @@ public class ListRuleSet implements RuleSet {
 		boolean contains = false;
 
 
-		for (Rule r : this.RuleGraph)
+		for (Rule r : this.ruleGraph)
 			if (r.isEqual(GivenRule))
 				contains = true;
 
@@ -85,7 +85,7 @@ public class ListRuleSet implements RuleSet {
 
 	public int getSize ()
 	{
-		return RuleGraph.size();
+		return ruleGraph.size();
 	}
 
 	public ArrayList <String> getExpansionHistoryinString ()
@@ -93,12 +93,12 @@ public class ListRuleSet implements RuleSet {
 
 		ArrayList <String> ExpansionHistory = new ArrayList<String> ();
 
-		for (Rule r: RuleGraph)
+		for (Rule r: ruleGraph)
 
 		{
-			String info1 = RuleGraph.indexOf(r) + ": " + r.printRightHandSide();
+			String info1 = ruleGraph.indexOf(r) + ": " + r.printRightHandSide();
 			ExpansionHistory.add(info1);
-			String info2 = RuleGraph.indexOf(r)  + ": " + r.printRuleInReverseOrderAndInEnglish();
+			String info2 = ruleGraph.indexOf(r)  + ": " + r.printRuleInReverseOrderAndInEnglish();
 			ExpansionHistory.add(info2);
 
 
@@ -109,7 +109,7 @@ public class ListRuleSet implements RuleSet {
 	}
 	public Rule getRule (int RulePosition)
 	{
-		return RuleGraph.get(RulePosition);
+		return ruleGraph.get(RulePosition);
 	}
 
 
@@ -117,7 +117,7 @@ public class ListRuleSet implements RuleSet {
 
 		ListRuleSet RuleGraphCopy = new ListRuleSet();
 
-		for (Rule r : this.RuleGraph) {
+		for (Rule r : this.ruleGraph) {
 			Rule RuleCopy = r.deepCopyRule();
 			RuleGraphCopy.addRule(RuleCopy);
 		}
@@ -129,7 +129,7 @@ public class ListRuleSet implements RuleSet {
 	{
 		Rule MatchedRule = null;
 
-		for (Rule r : this.RuleGraph)
+		for (Rule r : this.ruleGraph)
 
 			if (r.matchStringInLHS(TermString) != null)
 
@@ -153,7 +153,7 @@ public class ListRuleSet implements RuleSet {
 		 */
 		ConstraintSet MatchedQuery = new ConstraintSet();
 
-		for (Rule r : this.RuleGraph)
+		for (Rule r : this.ruleGraph)
 		{ 
 			for (Constraint queryItem : q.getConstraints()) 
 			{ 													
@@ -178,7 +178,7 @@ public class ListRuleSet implements RuleSet {
 
 		ArrayList<Rule> Rules = new ArrayList<Rule>();
 
-		for (Rule r : this.RuleGraph)
+		for (Rule r : this.ruleGraph)
 			if (r.containsPrecedent(LHSTerms))
 
 				Rules.add(r);
@@ -206,7 +206,7 @@ public class ListRuleSet implements RuleSet {
 		 */
 
 
-		for (Rule r: this.RuleGraph)
+		for (Rule r: this.ruleGraph)
 			if (r.getRuleCategory() == RuleCategory.OP_FI_REF)
 				SourceRules.add(r);
 
@@ -218,7 +218,7 @@ public class ListRuleSet implements RuleSet {
 	{
 		ArrayList<Rule>  WantedRules = new ArrayList<Rule> ();
 
-		for (Rule r: this.RuleGraph)
+		for (Rule r: this.ruleGraph)
 			if (r.getRuleType() == RT)
 				WantedRules.add(r);
 
@@ -243,7 +243,7 @@ public class ListRuleSet implements RuleSet {
 			{   
 				boolean isDanglingTerm = true;
 
-				for (Rule r1: this.RuleGraph)
+				for (Rule r1: this.ruleGraph)
 
 					if (r1.hasEqualRightHandSide(t))
 						isDanglingTerm = false;
@@ -287,7 +287,7 @@ public class ListRuleSet implements RuleSet {
 
 	public String RuleBaseToString() {
 		String RuleBaseInStringForm = "\n##########################Rule Set Begins #########################\n \n";
-		for (Rule r : this.RuleGraph)
+		for (Rule r : this.ruleGraph)
 			RuleBaseInStringForm = RuleBaseInStringForm + r.getRuleNumber() + ": " + r.printRule() + "\n \n";
 
 		RuleBaseInStringForm = RuleBaseInStringForm
@@ -303,7 +303,7 @@ public class ListRuleSet implements RuleSet {
 		
 
 		ArrayList<Rule> matchedRules = new ArrayList<Rule>();
-		for (Rule r : RuleGraph) 
+		for (Rule r : ruleGraph) 
 			if (r.hasEqualRightHandSide(rhs)) 
 				matchedRules.add(r);
 
@@ -321,7 +321,7 @@ public class ListRuleSet implements RuleSet {
 		 */
 
 		ArrayList<Rule> matchedRules = new ArrayList<Rule>();
-		for (Rule r : RuleGraph) 
+		for (Rule r : ruleGraph) 
 			if (r.containsPrecedent((LHS))) 
 				matchedRules.add(r);	
 		return matchedRules;

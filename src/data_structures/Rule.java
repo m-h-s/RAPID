@@ -35,8 +35,8 @@ public class Rule {
 	 * 
 	 */
 
-	private static int NumberOfRules = 0;
-	private int RuleNumber;
+	private static int numberOfRules = 0;
+	private int ruleNumber;
 
 	/*
 	 * Each rule has one left hand side that consists of one to many terms.
@@ -54,24 +54,24 @@ public class Rule {
 	/*
 	 * Each rule has one type of RuleType. *
 	 */
-	private RuleType RuleType;
+	private RuleType ruleType;
 
 	/*
 	 * Each rule has a category of type RuleCategory.
 	 */
-	private RuleCategory RuleCategory;
+	private RuleCategory ruleCategory;
 
 	/*
 	 * A rule can have a set of previous rules. Previous Rule: LHS of the Rule is
 	 * RHS in the previous rules.
 	 */
-	private ArrayList<Rule> PreviousRules = new ArrayList<Rule>();
+	private ArrayList<Rule> previousRules = new ArrayList<Rule>();
 
 	/*
 	 * A rule can have a set of next rules. Next Rule: RHS of the Rule is LHS in the
 	 * previous rules.
 	 */
-	private ArrayList<Rule> NextRules = new ArrayList<Rule>();
+	private ArrayList<Rule> nextRules = new ArrayList<Rule>();
 
 
 	//------------------------------------------
@@ -90,18 +90,18 @@ public class Rule {
 
 
 	public Rule() { // The constructor for an empty rule.
-		this.NumberOfRules++;
-		this.setRuleNumber(this.NumberOfRules);
+		this.numberOfRules++;
+		this.setRuleNumber(this.numberOfRules);
 
 		this.setConsequent(null);
-		this.setRuleType(RuleType.UNDET);
-		this.setRuleCategory(RuleCategory.UNDET);
+		this.setRuleType(ruleType.UNDET);
+		this.setRuleCategory(ruleCategory.UNDET);
 	}
 
 	public Rule(ArrayList<Term> LeftHandSide, Term RightHandSide, RuleType RuleType, RuleCategory RuleCategory) {
 
-		this.NumberOfRules++;
-		this.setRuleNumber(this.NumberOfRules);
+		this.numberOfRules++;
+		this.setRuleNumber(this.numberOfRules);
 
 		this.setPrecedent(LeftHandSide);
 		this.setConsequent(RightHandSide);
@@ -116,8 +116,8 @@ public class Rule {
 
 	public Rule(Term LeftHandSide, Term RightHandSide, RuleType RuleType, RuleCategory RuleCategory) {
 
-		this.NumberOfRules++;
-		this.setRuleNumber(this.NumberOfRules);
+		this.numberOfRules++;
+		this.setRuleNumber(this.numberOfRules);
 
 		ArrayList<Term> LHSArray = new ArrayList<Term>();
 		LHSArray.add(LeftHandSide);
@@ -134,11 +134,11 @@ public class Rule {
 	}
 
 	public int getRuleNumber() {
-		return this.RuleNumber;
+		return this.ruleNumber;
 	}
 
 	public void setRuleNumber(int ruleNumber) {
-		this.RuleNumber = ruleNumber;
+		this.ruleNumber = ruleNumber;
 	}
 
 	public ArrayList<Term> getPrecedent() {
@@ -158,19 +158,19 @@ public class Rule {
 	}
 
 	public RuleType getRuleType() {
-		return this.RuleType;
+		return this.ruleType;
 	}
 
 	public void setRuleType(RuleType ruleType) {
-		this.RuleType = ruleType;
+		this.ruleType = ruleType;
 	}
 
 	public RuleCategory getRuleCategory() {
-		return this.RuleCategory;
+		return this.ruleCategory;
 	}
 
 	public void setRuleCategory(RuleCategory ruleCategory) {
-		this.RuleCategory = ruleCategory;
+		this.ruleCategory = ruleCategory;
 	}
 
 
@@ -179,28 +179,28 @@ public class Rule {
 	 * @return the previousRules
 	 */
 	public ArrayList<Rule> getPreviousRules() {
-		return PreviousRules;
+		return previousRules;
 	}
 
 	/**
 	 * @param previousRules the previousRules to set
 	 */
 	public void setPreviousRules(ArrayList<Rule> previousRules) {
-		this.PreviousRules = previousRules;
+		this.previousRules = previousRules;
 	}
 
 	/**
 	 * @return the nextRules
 	 */
 	public ArrayList<Rule> getNextRules() {
-		return NextRules;
+		return nextRules;
 	}
 
 	/**
 	 * @param nextRules the nextRules to set
 	 */
 	public void setNextRules(ArrayList<Rule> nextRules) {
-		this.NextRules = nextRules;
+		this.nextRules = nextRules;
 	}
 
 	public boolean hasEqualRightHandSide(Term RHS) {
@@ -234,7 +234,7 @@ public class Rule {
 	public boolean isEqual(Rule r) {
 		boolean isEqual = false;
 		if (this.hasEqualLeftHandSide(r.getPrecedent()) && this.hasEqualRightHandSide(r.getConsequent())
-				&& this.RuleType == r.RuleType)
+				&& this.ruleType == r.ruleType)
 			isEqual = true;
 
 		return isEqual;
@@ -298,7 +298,7 @@ public class Rule {
 		if (this.getPrecedent().size() > 1) {
 			char identifier = 'a';
 			for (Term t : this.precedent) {
-				LhsPrint = LhsPrint + "(" + identifier + ") " + t.printTermInEnglish() + ", " + this.RuleType.toString().toLowerCase()+ " ";
+				LhsPrint = LhsPrint + "(" + identifier + ") " + t.printTermInEnglish() + ", " + this.ruleType.toString().toLowerCase()+ " ";
 				// Only print three consequent terms in a line.
 				identifier++;
 				counter++;
@@ -311,7 +311,7 @@ public class Rule {
 			LhsPrint = LhsPrint + this.precedent.get(0).printTermInEnglish();
 		}
 
-		if (Objects.equals(this.RuleType.toString().toLowerCase(),"or"))
+		if (Objects.equals(this.ruleType.toString().toLowerCase(),"or"))
 		{
 
 			LhsPrint = LhsPrint.trim ();
@@ -320,7 +320,7 @@ public class Rule {
 
 		}
 
-		else if (Objects.equals(this.RuleType.toString().toLowerCase(),"and"))
+		else if (Objects.equals(this.ruleType.toString().toLowerCase(),"and"))
 		{
 
 			LhsPrint = LhsPrint.trim ();
@@ -343,7 +343,7 @@ public class Rule {
 
 	public String printRule() {
 
-		String rule = this.printPrecedent() + "\n" + " ---" + this.RuleType + "---> " + this.printRightHandSide()
+		String rule = this.printPrecedent() + "\n" + " ---" + this.ruleType + "---> " + this.printRightHandSide()
 		+ "\n";
 
 		return rule;
@@ -355,23 +355,23 @@ public class Rule {
 
 		String rule = this.printPrecedentInEnglish();
 
-		if (this.RuleCategory == RuleCategory.COR)
-			if ((this.RuleType == RuleType.HELP))
+		if (this.ruleCategory == ruleCategory.COR)
+			if ((this.ruleType == ruleType.HELP))
 				rule = rule + " has weak positive impact on\n\n" + this.printRightHandSideInEnglish() + ".\n\n\n";
 
-			else if ((this.RuleType == RuleType.HURT))
+			else if ((this.ruleType == ruleType.HURT))
 				rule = rule + "has weak negative impact on\n\n" + this.printRightHandSideInEnglish() + ".\n\n\n";
 
-			else if ((this.RuleType == RuleType.MAKE))
+			else if ((this.ruleType == ruleType.MAKE))
 				rule = rule + " has strong positive impact on\n\n" + this.printRightHandSideInEnglish() + ".\n\n\n";
 
-			else if ((this.RuleType == RuleType.BREAK ))
+			else if ((this.ruleType == ruleType.BREAK ))
 				rule = rule + " has strong negative impact on\n\n" + this.printRightHandSideInEnglish() + ".\n\n\n";
 
-			else if ((this.RuleType == RuleType.SOMEPLUS))
+			else if ((this.ruleType == ruleType.SOMEPLUS))
 				rule = rule + " has some positive impact on\n\n" + this.printRightHandSideInEnglish() + ". \n\n\n";
 
-			else if ((this.RuleType == RuleType.SOMEMINUS))
+			else if ((this.ruleType == ruleType.SOMEMINUS))
 				rule = rule + " has some negative impact on\n\n" + this.printRightHandSideInEnglish() + ". \n\n\n";
 
 		// The else part to the if should be written.
@@ -428,8 +428,8 @@ public class Rule {
 		String Type = "";
 		String RuleTypeString = "";
 		String RuleCategoryString = "";
-		RuleType RT = RuleType.UNDET;
-		RuleCategory RC = RuleCategory.UNDET;
+		RuleType RT = ruleType.UNDET;
+		RuleCategory RC = ruleCategory.UNDET;
 
 		boolean precedentExpected = false;
 
@@ -496,7 +496,7 @@ public class Rule {
 
 				RuleTypeString = RuleTypeString.trim();
 
-				RT = RuleType.valueOf(RuleTypeString);
+				RT = ruleType.valueOf(RuleTypeString);
 
 				RuleTypeString = "";
 			}
@@ -527,7 +527,7 @@ public class Rule {
 		}
 
 		RuleCategoryString = RuleCategoryString.trim();
-		RC = RuleCategory.valueOf(RuleCategoryString);
+		RC = ruleCategory.valueOf(RuleCategoryString);
 
 
 		this.setPrecedent(LHS);
@@ -550,7 +550,7 @@ public class Rule {
 	public String printRuleInReverseOrderAndInEnglish() {
 		String ruleInReverseOrder = "";
 
-		if (this.RuleCategory == RuleCategory.NF_REF) {
+		if (this.ruleCategory == ruleCategory.NF_REF) {
 
 			if (this.countLHS() > 1)
 			{
@@ -565,7 +565,7 @@ public class Rule {
 						this.printPrecedentInEnglish() + ".";
 			}
 
-		} else if (this.RuleCategory == RuleCategory.OP_FI_REF) {
+		} else if (this.ruleCategory == ruleCategory.OP_FI_REF) {
 
 			if (this.countLHS() > 1) {
 
@@ -584,7 +584,7 @@ public class Rule {
 
 		}
 
-		else if (this.RuleCategory == RuleCategory.OP_NF_REF) {
+		else if (this.ruleCategory == ruleCategory.OP_NF_REF) {
 			if (this.countLHS() > 1) {
 				ruleInReverseOrder = "To address the requirement " + this.printRightHandSideInEnglish() + ", \n\n"
 						+ "the following functionalities need to be designed: \n\n" + this.printPrecedentInEnglish()
@@ -601,7 +601,7 @@ public class Rule {
 			}
 		}
 
-		else if (this.RuleCategory == RuleCategory.OP_FF_REF) {
+		else if (this.ruleCategory == ruleCategory.OP_FF_REF) {
 
 			if (this.countLHS() > 1) {
 				ruleInReverseOrder = "To design the functionality " + this.printRightHandSideInEnglish() + ", "

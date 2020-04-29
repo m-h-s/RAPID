@@ -27,7 +27,7 @@ RAPID is a working prototype implemented in Java.
 
 ### Development Dates:
 * First Release: 2018 - 12 - 01
-* Public Release: 2019 - 08 - 17
+* Public Release: 2019 - 08 - 22
 
 ### Copyright
 License: **Creative Commons** <br><br>

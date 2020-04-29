@@ -13,7 +13,7 @@ RAPID provides four types of guidelines to the users: <Enter>
 ### Design and Architecture
 RAPID has four main components:<br>
 * *Rule Base Component (RB)*: RB is responsible for storing and managing the rules encoding design knowledge. 
-   <br>
+   <br><br>
 * *Rule Explorer (RE)*: RE is responsible for retrieving the rules that are related to a session of interaction with a user, <br> 
   and managing them until the interaction session ends.
   <br><br> 

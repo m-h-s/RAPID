@@ -25,6 +25,10 @@ RAPID is designed as a rule-based knowledge-based system and has four main compo
 ### Implementation
 RAPID is a working prototype implemented in Java.
 
+### Development Dates:
+* First Release: 2018 - 12 - 01
+* Public Release: 2019 - 09 - 01
+
 ### Copyright
 License: **Creative Commons** <br><br>
 The use, modification, and distribution of the source code is allowed under two conditions:

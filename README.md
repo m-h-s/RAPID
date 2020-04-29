@@ -22,7 +22,7 @@ RAPID has four main components:<br>
 * *Reasoner*: Reasoner is responsible for evaluating the rules related to an interaction session and selecting and recommending appropriate design solutions. 
 
 ### Copyright
-License: Creative Commons <br>
+License: **Creative Commons** <br>
 * The use, modification, and distribution of the source code is allowed under the condition that the original work and the original developer is cited.
 <br><br>
 * Obtaining permission from the original developer is required.

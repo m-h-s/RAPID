@@ -23,8 +23,9 @@ RAPID has four main components:<br>
 
 ### copyright
 License: Creative Commons <br>
-The use, modification, and distribution of the source code is allowed under the condition that the original work and the original developer is cited.
-Obtaining permission from teh original developer is required.
+* The use, modification, and distribution of the source code is allowed under the condition that the original work and the original developer is cited.
+<br><br>
+* Obtaining permission from the original developer is required.
 
 ### References
 1. Sadi, M. H. (2020). "Assisting with API design through Reusing Design Knowledge". <br>

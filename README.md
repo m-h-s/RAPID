@@ -1,7 +1,8 @@
 # Rational API Designer (RAPID)
 
 ### Objectives
-RAPID is a conversational assistant that aids software developers in addressing non-functional requirements in the design of web APIs.
+RAPID is a conversational assistant that aids software developers <br><br> 
+in addressing non-functional requirements in the design of web APIs.
 
 ### Main Features
 RAPID provides four types of guidelines to the users: <Enter>
@@ -11,7 +12,7 @@ RAPID provides four types of guidelines to the users: <Enter>
 * Recommending design alternatives based on the requirements of a given case.
 
 ### Design and Architecture
-RAPID is designed as a rule-based knowledge-based System and has four main components:<br>
+RAPID is designed as a rule-based knowledge-based system and has four main components:<br>
 * *Rule Base Component (RB)*: RB is responsible for storing and managing the rules encoding design knowledge. 
    <br><br>
 * *Rule Explorer (RE)*: RE is responsible for retrieving the rules that are related to a session of interaction with a user, <br> 
@@ -22,7 +23,7 @@ RAPID is designed as a rule-based knowledge-based System and has four main compo
 * *Reasoner*: Reasoner is responsible for evaluating the rules related to an interaction session and selecting and recommending appropriate design solutions. 
 
 ### Implementation
-RAPID is implemented in Java.
+RAPID is a working prototype implemented in Java.
 
 ### Copyright
 License: **Creative Commons** <br><br>

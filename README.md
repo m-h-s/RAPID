@@ -17,11 +17,11 @@ RAPID has four main components:<br>
 * *Rule Explorer (RE)*: RE is responsible for retrieving the rules that are related to a session of interaction with a user, <br> 
   and managing them until the interaction session ends.
   <br><br> 
-* *User Interaction Component (UIM)*: which allows a user to interact with the system, to pose design queries over the rule base, to and receive a set of responses. 
+* *User Interaction Component (UIM)*: UIM allows a user to interact with the system, to pose design queries over the rule base, to and receive a set of responses. 
 <br><br>
 * *Reasoner*: Reasoner is responsible for evaluating the rules related to an interaction session and selecting and recommending appropriate design solutions. 
 
-### copyright
+### Copyright
 License: Creative Commons <br>
 * The use, modification, and distribution of the source code is allowed under the condition that the original work and the original developer is cited.
 <br><br>

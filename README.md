@@ -27,14 +27,14 @@ RAPID is a working prototype implemented in Java.
 
 ### Development Dates:
 * First Release: 2018 - 12 - 01
-* Public Release: 2019 - 09 - 01
+* Public Release: 2019 - 08 - 17
 
 ### Copyright
 License: **Creative Commons** <br><br>
 The use, modification, and distribution of the source code is allowed under two conditions:
-1. The original work and the original developer is cited.
+1. The original research work and the original developer is cited.
 <br><br>
-2. Obtaining permission from the original developer is required.
+2. Explicit permission is obtained from the original developer.
 
 ### References
 1. Sadi, M. H. (2020). "Assisting with API design through Reusing Design Knowledge". <br>

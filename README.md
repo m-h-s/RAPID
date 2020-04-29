@@ -25,7 +25,7 @@ RAPID is designed as a rule-based knowledge-based system and has four main compo
 ### Implementation
 RAPID is a working prototype implemented in Java.
 
-### Development Dates:
+### Release Dates:
 * First Release: 2018 - 12 - 01
 * Public Release: 2019 - 08 - 22
 

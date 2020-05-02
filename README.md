@@ -44,4 +44,4 @@ Doctoral Dissertation. Department of Computer Science. University of Toronto.
 Submitted to the Requirements Engineering Journal.
 
 ### Contributers
-* Mahsa H. Sadi, PH.D., Department of Computer Science University of Toronto
+* Mahsa H. Sadi, PH.D., Department of Computer Science, University of Toronto

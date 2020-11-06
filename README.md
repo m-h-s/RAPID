@@ -40,8 +40,8 @@ The use, modification, and distribution of the source code is allowed under two 
 1. Sadi, M. H. (2020). "Assisting with API Design through Reusing Design Knowledge". <br>
 Doctoral Dissertation. Department of Computer Science. University of Toronto.
 <br> <br>
-2. Sadi, M.H. & Yu, E. (2020). "RAPID: Assisting with API Design through Reusing Design Knowledge". <br>
-Submitted to the Requirements Engineering Journal.
+2. Sadi, M.H. & Yu, E. (2020). "RAPID: A Knowledge-Based Assistant for Designing Web APIs". <br>
+To Appear in the Requirements Engineering Journal.
 
 ### Contributers
 * Mahsa H. Sadi, PH.D., Department of Computer Science, University of Toronto

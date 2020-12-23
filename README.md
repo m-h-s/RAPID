@@ -11,7 +11,7 @@ RAPID provides four types of guidelines to the users: <Enter>
 * Analyzing the impact of design alternatives on non-functional requirements
 * Recommending design alternatives based on the requirements of a given case
    
-### Demo
+### Website and Video Demo
 <a> http://www.cs.toronto.edu/~mhsadi/Rational%20API%20Designer.html </a>
 
 ### Design and Architecture
